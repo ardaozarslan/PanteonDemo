@@ -5,13 +5,17 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
 	private List<BuildingSO> buildings;
-	public List<BuildingSO> Buildings { get { return buildings; } }
+	public List<BuildingSO> Buildings { get { return buildings ??= new(Resources.LoadAll<BuildingSO>("Buildings")); } }
 
-    private void Awake() {
-		buildings = new(Resources.LoadAll<BuildingSO>("Buildings"));
+	private void Start()
+	{
+		StartCoroutine(WaitUntilEndOfFrame());
 	}
 
-	private void Start() {
+	// This is a workaround to make sure that the production menu is initialized after the UI is scaled
+	IEnumerator WaitUntilEndOfFrame()
+	{
+		yield return new WaitForEndOfFrame();
 		ProductionMenuManager.Instance.Init();
 	}
 }

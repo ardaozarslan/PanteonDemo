@@ -623,10 +623,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14263bb5c461d704d8067b96e3c8352d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _productionMenu: {fileID: 1422787004}
-  _productionMenuContent: {fileID: 58186307}
-  _productionMenuItemPrefab: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-  spacing: 200
+  productionMenu: {fileID: 1422787004}
+  productionMenuContent: {fileID: 58186307}
+  productionMenuViewPort: {fileID: 1892684452}
+  productionMenuItemPrefab: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
+  layoutGroup: {fileID: 58186310}
+  scrollRect: {fileID: 1422787006}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
