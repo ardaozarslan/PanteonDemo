@@ -164,7 +164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 58186307}
-  - component: {fileID: 58186308}
+  - component: {fileID: 58186310}
   - component: {fileID: 58186309}
   m_Layer: 5
   m_Name: Content
@@ -184,42 +184,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 695275381}
+  m_Children: []
   m_Father: {fileID: 1892684452}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -52.80005, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &58186308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58186306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 40
-    m_Bottom: 0
-  m_ChildAlignment: 1
-  m_Spacing: 40
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 1
-  m_ReverseArrangement: 0
 --- !u!114 &58186309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,11 +202,301 @@ MonoBehaviour:
   m_GameObject: {fileID: 58186306}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Script: {fileID: 11500000, guid: 22d6436a87432de4d9a8278f12bf49b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+  source: {fileID: 0}
+  settingsFallback:
+    HorizontalFit: 0
+    VerticalFit: 2
+    IsAnimated: 0
+    AnimationTime: 0.2
+    HasMinWidth: 0
+    HasMinHeight: 0
+    HasMaxWidth: 0
+    HasMaxHeight: 0
+    screenConfigName: 
+  customSettings:
+    items:
+    - HorizontalFit: 0
+      VerticalFit: 2
+      IsAnimated: 0
+      AnimationTime: 0.2
+      HasMinWidth: 0
+      HasMinHeight: 0
+      HasMaxWidth: 0
+      HasMaxHeight: 0
+      screenConfigName: Landscape
+  minWidthSizerFallback:
+    screenConfigName: 
+    OptimizedSize: 0
+    MinSize: 0
+    MaxSize: 4000
+    UseMinSize: 0
+    UseMaxSize: 0
+    Mod:
+      ExponentialScale: 1
+      SizeModifiers:
+      - Mode: 0
+        Impact: 1
+  minWidthSizers:
+    items: []
+  minHeightSizerFallback:
+    screenConfigName: 
+    OptimizedSize: 0
+    MinSize: 0
+    MaxSize: 4000
+    UseMinSize: 0
+    UseMaxSize: 0
+    Mod:
+      ExponentialScale: 1
+      SizeModifiers:
+      - Mode: 0
+        Impact: 1
+  minHeightSizers:
+    items: []
+  maxWidthSizerFallback:
+    screenConfigName: 
+    OptimizedSize: 1000
+    MinSize: 0
+    MaxSize: 4000
+    UseMinSize: 0
+    UseMaxSize: 0
+    Mod:
+      ExponentialScale: 1
+      SizeModifiers:
+      - Mode: 0
+        Impact: 1
+  maxWidthSizers:
+    items:
+    - screenConfigName: Landscape
+      OptimizedSize: 1000
+      MinSize: 0
+      MaxSize: 4000
+      UseMinSize: 0
+      UseMaxSize: 0
+      Mod:
+        ExponentialScale: 1
+        SizeModifiers:
+        - Mode: 0
+          Impact: 1
+  maxHeightSizerFallback:
+    screenConfigName: 
+    OptimizedSize: 250
+    MinSize: 0
+    MaxSize: 4000
+    UseMinSize: 0
+    UseMaxSize: 0
+    Mod:
+      ExponentialScale: 1
+      SizeModifiers:
+      - Mode: 0
+        Impact: 1
+  maxHeightSizers:
+    items:
+    - screenConfigName: Landscape
+      OptimizedSize: 1000
+      MinSize: 0
+      MaxSize: 4000
+      UseMinSize: 0
+      UseMaxSize: 0
+      Mod:
+        ExponentialScale: 1
+        SizeModifiers:
+        - Mode: 0
+          Impact: 1
+  paddingFallback:
+    screenConfigName: 
+    OptimizedSize: {x: 0, y: 0}
+    MinSize: {x: -5000, y: -5000}
+    MaxSize: {x: 5000, y: 5000}
+    UseMinSize: 0
+    UseMaxSize: 0
+    ModX:
+      ExponentialScale: 1
+      SizeModifiers:
+      - Mode: 0
+        Impact: 1
+    ModY:
+      ExponentialScale: 1
+      SizeModifiers:
+      - Mode: 0
+        Impact: 1
+  paddingSizers:
+    items:
+    - screenConfigName: Landscape
+      OptimizedSize: {x: 0, y: 0}
+      MinSize: {x: -5000, y: -5000}
+      MaxSize: {x: 5000, y: 5000}
+      UseMinSize: 0
+      UseMaxSize: 0
+      ModX:
+        ExponentialScale: 1
+        SizeModifiers:
+        - Mode: 0
+          Impact: 1
+      ModY:
+        ExponentialScale: 1
+        SizeModifiers:
+        - Mode: 0
+          Impact: 1
+  treatAsLayoutElement: 0
+--- !u!114 &58186310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58186306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b54b16f2fcdba244b49be1f398b6562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 30
+    m_Right: 30
+    m_Top: 100
+    m_Bottom: 0
+  m_ChildAlignment: 1
+  m_Spacing: 44
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+  paddingSizerFallback:
+    screenConfigName: 
+    OptimizedSize:
+      left: 100
+      right: 100
+      top: 44
+      bottom: 0
+    MinSize:
+      left: 0
+      right: 0
+      top: 0
+      bottom: 0
+    MaxSize:
+      left: 1000
+      right: 1000
+      top: 1000
+      bottom: 1000
+    UseMinSize: 0
+    UseMaxSize: 0
+    ModLeft:
+      ExponentialScale: 1
+      SizeModifiers:
+      - Mode: 2
+        Impact: 1
+    ModRight:
+      ExponentialScale: 1
+      SizeModifiers:
+      - Mode: 2
+        Impact: 1
+    ModTop:
+      ExponentialScale: 1
+      SizeModifiers:
+      - Mode: 2
+        Impact: 1
+    ModBottom:
+      ExponentialScale: 1
+      SizeModifiers:
+      - Mode: 2
+        Impact: 1
+  customPaddingSizers:
+    items:
+    - screenConfigName: Landscape
+      OptimizedSize:
+        left: 30
+        right: 30
+        top: 100
+        bottom: 0
+      MinSize:
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0
+      MaxSize:
+        left: 1000
+        right: 1000
+        top: 1000
+        bottom: 1000
+      UseMinSize: 0
+      UseMaxSize: 0
+      ModLeft:
+        ExponentialScale: 1
+        SizeModifiers:
+        - Mode: 2
+          Impact: 1
+      ModRight:
+        ExponentialScale: 1
+        SizeModifiers:
+        - Mode: 2
+          Impact: 1
+      ModTop:
+        ExponentialScale: 1
+        SizeModifiers:
+        - Mode: 2
+          Impact: 1
+      ModBottom:
+        ExponentialScale: 1
+        SizeModifiers:
+        - Mode: 2
+          Impact: 1
+  spacingSizerFallback:
+    screenConfigName: 
+    OptimizedSize: 44
+    MinSize: 0
+    MaxSize: 300
+    UseMinSize: 0
+    UseMaxSize: 0
+    Mod:
+      ExponentialScale: 1
+      SizeModifiers:
+      - Mode: 2
+        Impact: 1
+  customSpacingSizers:
+    items:
+    - screenConfigName: Landscape
+      OptimizedSize: 44
+      MinSize: 0
+      MaxSize: 300
+      UseMinSize: 0
+      UseMaxSize: 0
+      Mod:
+        ExponentialScale: 1
+        SizeModifiers:
+        - Mode: 0
+          Impact: 1
+  settingsFallback:
+    ChildAlignment: 1
+    ReverseArrangement: 0
+    ChildForceExpandHeight: 0
+    ChildForceExpandWidth: 0
+    ChildScaleWidth: 0
+    ChildScaleHeight: 0
+    ChildControlWidth: 0
+    ChildControlHeight: 0
+    Orientation: 1
+    screenConfigName: Fallback
+  customSettings:
+    items:
+    - ChildAlignment: 1
+      ReverseArrangement: 0
+      ChildForceExpandHeight: 0
+      ChildForceExpandWidth: 0
+      ChildScaleWidth: 0
+      ChildScaleHeight: 0
+      ChildControlWidth: 0
+      ChildControlHeight: 0
+      Orientation: 1
+      screenConfigName: Landscape
+  orientation: 1
 --- !u!1 &181794250
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,11 +858,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!224 &695275381 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-  m_PrefabInstance: {fileID: 1189027562}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &779687228
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -711,103 +969,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ed54f0c63ad1a438e91a4d8af4e888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1189027562
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 58186307}
-    m_Modifications:
-    - target: {fileID: 2119480485535377314, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_Name
-      value: ProductionMenuItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 320
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 320
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2119480485535377317, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0b7ef80144037f649835499a7a7400e9, type: 3}
 --- !u!1 &1217606557
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,7 +1100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.8632076, g: 1, b: 0.9919534, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1044,6 +1205,7 @@ GameObject:
   - component: {fileID: 1892684455}
   - component: {fileID: 1892684454}
   - component: {fileID: 1892684453}
+  - component: {fileID: 1892684456}
   m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
@@ -1123,6 +1285,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892684451}
   m_CullTransparentMesh: 1
+--- !u!114 &1892684456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892684451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 200}
 --- !u!1 &1906995084
 GameObject:
   m_ObjectHideFlags: 0

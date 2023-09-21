@@ -11,7 +11,7 @@ public class GridManager : Singleton<GridManager>
 
 	private Dictionary<Vector2Int, Tile> _tiles;
 
-	private void Start()
+	private void Awake()
 	{
 		GenerateGrid();
 	}
