@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6993e1941155fa48a48b602f22e4c28, type: 3}
   m_Name: Wall
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 6694315942064909676, guid: 796232868931ef04fbd9cb2451daed61, type: 3}
+  _name: Wall
   _size: {x: 1, y: 1}
   _sprite: {fileID: 21300000, guid: bad70f4ed72cb3e41afd0ada7fe95bd0, type: 3}

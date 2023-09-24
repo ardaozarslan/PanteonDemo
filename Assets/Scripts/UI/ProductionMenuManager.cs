@@ -4,6 +4,9 @@ using TheraBytes.BetterUi;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages the production menu UI, including scrolling and item initialization.
+/// </summary>
 public class ProductionMenuManager : Singleton<ProductionMenuManager>
 {
 	[SerializeField] private GameObject productionMenu;
@@ -15,34 +18,44 @@ public class ProductionMenuManager : Singleton<ProductionMenuManager>
 	[SerializeField] private ScrollRect scrollRect;
 
 
-	private List<BuildingSO> buildings => GameManager.Instance.Buildings;
+	private List<BuildingSO> Buildings => GameManager.Instance.Buildings;
 
-	private List<RectTransform> items = new List<RectTransform>();
-	private Vector2 itemSize;
+	private readonly List<RectTransform> items = new();
 
 	private Vector2 oldVelocity;
+	private bool isInitialized = false;
 	private bool isUpdated;
 
 
+	/// <summary>
+	/// Called before the first frame update. Initializes the production menu items with the buildings defined in the Buildings list.
+	/// </summary>
 	private void Start()
 	{
 		isUpdated = false;
 		oldVelocity = Vector2.zero;
 
 		// Create initial items.
-		for (int i = 0; i < buildings.Count; i++)
+		for (int i = 0; i < Buildings.Count; i++)
 		{
-			var building = buildings[i];
+			var building = Buildings[i];
 			var productionMenuItem = Instantiate(productionMenuItemPrefab, productionMenuContent);
 			productionMenuItem.GetComponent<ProductionMenuItem>().Init(building);
 			productionMenuItem.name = building.name;
 			items.Add(productionMenuItem);
 		}
-
 	}
 
+	/// <summary>
+	/// Initializes the production menu by adding items to fill the viewport and setting the content position to the middle of the list.
+	/// </summary>
 	public void Init()
 	{
+		if (isInitialized)
+		{
+			return;
+		}
+		isInitialized = true;
 		// Calculate the number of items needed to fill the viewport
 		int itemsToAdd = Mathf.CeilToInt(productionMenuViewPort.rect.height / (items[0].rect.height + layoutGroup.spacing));
 
@@ -50,6 +63,7 @@ public class ProductionMenuManager : Singleton<ProductionMenuManager>
 		for (int i = 0; i < itemsToAdd; i++)
 		{
 			RectTransform newItem = Instantiate(items[i % items.Count], productionMenuContent);
+			newItem.GetComponent<ProductionMenuItem>().Init(items[i % items.Count].GetComponent<ProductionMenuItem>().BuildingSO, items[i % items.Count].GetComponent<ProductionMenuItem>());
 			newItem.SetAsLastSibling();
 		}
 
@@ -62,6 +76,7 @@ public class ProductionMenuManager : Singleton<ProductionMenuManager>
 				num += items.Count;
 			}
 			RectTransform newItem = Instantiate(items[num], productionMenuContent);
+			newItem.GetComponent<ProductionMenuItem>().Init(items[num].GetComponent<ProductionMenuItem>().BuildingSO, items[num].GetComponent<ProductionMenuItem>());
 			newItem.SetAsFirstSibling();
 		}
 
@@ -69,8 +84,15 @@ public class ProductionMenuManager : Singleton<ProductionMenuManager>
 		productionMenuContent.localPosition = new Vector3(productionMenuContent.localPosition.x, (items[0].rect.height + layoutGroup.spacing) * itemsToAdd, productionMenuContent.localPosition.z);
 	}
 
+	/// <summary>
+	/// This method is called every frame. It checks if the content position is out of bounds and moves it accordingly.
+	/// </summary>
 	private void Update()
 	{
+		if (!isInitialized)
+		{
+			return;
+		}
 		// This is a hack to fix the scroll rect bug
 		if (isUpdated) {
 			scrollRect.velocity = oldVelocity;

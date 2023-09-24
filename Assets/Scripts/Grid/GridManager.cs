@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The GridManager class is responsible for generating and managing a grid of tiles.
+/// </summary>
 public class GridManager : Singleton<GridManager>
 {
 
@@ -11,12 +14,16 @@ public class GridManager : Singleton<GridManager>
 
 	private Dictionary<Vector2Int, Tile> _tiles;
 
+	[SerializeField] private GameObject tilesParent;
+
 	private void Awake()
 	{
 		GenerateGrid();
 	}
 
-	// This is a method that will generate a grid of tiles
+	/// <summary>
+	/// Generates a grid of tiles and sets the camera to the center of the grid.
+	/// </summary>
 	private void GenerateGrid()
 	{
 		_tiles = new();
@@ -24,7 +31,7 @@ public class GridManager : Singleton<GridManager>
 		{
 			for (int y = 0; y < _height; y++)
 			{
-				Tile tile = Instantiate(_tilePrefab, new Vector3(x, y), Quaternion.identity, transform);
+				Tile tile = Instantiate(_tilePrefab, new Vector3(x, y), Quaternion.identity, tilesParent.transform);
 				tile.Init(new Vector2Int(x, y));
 
 				_tiles.Add(new Vector2Int(x, y), tile);
@@ -34,7 +41,11 @@ public class GridManager : Singleton<GridManager>
 		_cam.transform.position = new Vector3(_width / 2f - 0.5f, _height / 2f - 0.5f, -10);
 	}
 
-	// This method will return the tile at a given position
+	/// <summary>
+	/// Returns the tile at the specified grid position, if it exists.
+	/// </summary>
+	/// <param name="gridPos">The grid position of the tile to retrieve.</param>
+	/// <returns>The tile at the specified grid position, or null if no tile exists at that position.</returns>
 	public Tile GetTileAtPosition(Vector2Int gridPos)
 	{
 		if (_tiles.ContainsKey(gridPos))

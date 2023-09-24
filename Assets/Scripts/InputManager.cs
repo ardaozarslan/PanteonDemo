@@ -1,7 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
+/// <summary>
+/// Singleton class that manages user input for the game.
+/// </summary>
 public class InputManager : Singleton<InputManager>
 {
 	[SerializeField] private Camera _camera;
@@ -13,6 +18,8 @@ public class InputManager : Singleton<InputManager>
 	private float currentCameraSize;
 	private Vector3 currentCameraPosition;
 
+	public event Action OnMouseLeftClick, OnExit;
+
 	private void Start()
 	{
 		currentCameraSize = _camera.orthographicSize;
@@ -20,7 +27,10 @@ public class InputManager : Singleton<InputManager>
 	}
 
 
-	// This method will return the position of the mouse on the grid
+	/// <summary>
+	/// Returns the position of the selected map point based on the current mouse position.
+	/// </summary>
+	/// <returns>The position of the selected map point.</returns>
 	public Vector2 GetSelectedMapPosition()
 	{
 		Vector2 mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
@@ -34,19 +44,23 @@ public class InputManager : Singleton<InputManager>
 		return lastPosition;
 	}
 
-	// This method controls the camera zoom
+	/// <summary>
+	/// Zooms the camera in and out based on the mouse scroll wheel input.
+	/// </summary>
 	public void CameraZoom()
 	{
 		float scrollData;
 		scrollData = Input.GetAxis("Mouse ScrollWheel");
 		if (scrollData != 0)
 		{
-			currentCameraSize = Mathf.Clamp(currentCameraSize - scrollData * 3, 2f, 10f);
+			currentCameraSize = Mathf.Clamp(currentCameraSize - scrollData * 3, 2f, 20f);
 		}
 		_camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, currentCameraSize, Time.deltaTime * 10);
 	}
 
-	// This method controls the camera movement
+	/// <summary>
+	/// Moves the camera based on the user's input.
+	/// </summary>
 	public void CameraMove()
 	{
 		Vector3 move = new(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f);
@@ -55,9 +69,27 @@ public class InputManager : Singleton<InputManager>
 		_camera.transform.position = Vector3.Lerp(_camera.transform.position, currentCameraPosition, Time.deltaTime * 20);
 	}
 
-	void Update()
-	{
+	/// <summary>
+	/// Checks if the pointer is currently over a UI element.
+	/// </summary>
+	/// <returns>True if the pointer is over a UI element, false otherwise.</returns>
+	public bool IsPinterOverUI() {
+		return EventSystem.current.IsPointerOverGameObject();
+	}
 
+	/// <summary>
+	/// This method is called every frame and checks for mouse left click and escape key press events.
+	/// </summary>
+	private void Update()
+	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			OnMouseLeftClick?.Invoke();
+		}
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			OnExit?.Invoke();
+		}
 	}
 
 	private void LateUpdate()

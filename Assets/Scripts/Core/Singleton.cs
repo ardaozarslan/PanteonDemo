@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// A generic class for creating singleton instances of a MonoBehaviour.
+/// </summary>
+/// <typeparam name="T">The type of the singleton instance.</typeparam>
 public class Singleton<T> : MonoBehaviour where T : Component
 {
 	private static T _instance;
@@ -23,14 +27,6 @@ public class Singleton<T> : MonoBehaviour where T : Component
 				}
 			}
 			return _instance;
-		}
-	}
-
-	public static bool IsInitialized
-	{
-		get
-		{
-			return _instance != null;
 		}
 	}
 }

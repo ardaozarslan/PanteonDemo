@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: PowerPlant
   m_EditorClassIdentifier: 
   _prefab: {fileID: 7828604220186680223, guid: ed2ab2cc61d78fd4b942fe2313e0e6f2, type: 3}
+  _name: Power Plant
   _size: {x: 2, y: 3}
   _sprite: {fileID: 21300000, guid: 923ca1cac34adad47bf659a1605d8f07, type: 3}

@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Tile
+    uniqueID: 2845772913
+    locked: 0
+  - name: Building
+    uniqueID: 4233406305
+    locked: 0
+  - name: CellIndicator
+    uniqueID: 4082388233
+    locked: 0

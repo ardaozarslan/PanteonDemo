@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The GameManager class is responsible for managing the game state and initializing the game objects.
+/// </summary>
 public class GameManager : Singleton<GameManager>
 {
 	private List<BuildingSO> buildings;
