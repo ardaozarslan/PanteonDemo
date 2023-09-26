@@ -8,25 +8,28 @@ using UnityEngine;
 public class PlacementSystem : Singleton<PlacementSystem>
 {
 	[SerializeField] GameObject buildingsParent;
-	[SerializeField] private GameObject cellIndicator;
+	[SerializeField] private GameObject cellIndicator, previewObject;
 	private SpriteRenderer cellIndicatorSpriteRenderer;
 
 	[SerializeField] private Grid grid;
 
-	private BuildingSO selectedBuildingSO = null;
+	private BuildingSO selectedBuildingSO, lastSelectedBuildingSO;
 
 	private GridData objectData;
 
 	private List<GameObject> placedObjects = new();
 
-	private Dictionary<IndicatorColor, Color> indicatorColors = new(){
+	private readonly Dictionary<IndicatorColor, Color> indicatorColors = new(){
 		{ IndicatorColor.Red, new Color(1, 0, 0, 0.6f) },
 		{ IndicatorColor.Green, new Color(0, 1, 0, 0.6f) },
 		{ IndicatorColor.Yellow, new Color(1, 1, 0, 0.6f) }
 	};
 
+	private Vector3Int lastGridPosition = Vector3Int.zero;
+
 	private void Start()
 	{
+		previewObject.SetActive(false);
 		StopPlacement();
 		objectData = new();
 		cellIndicatorSpriteRenderer = cellIndicator.GetComponentInChildren<SpriteRenderer>();
@@ -91,6 +94,7 @@ public class PlacementSystem : Singleton<PlacementSystem>
 	private void StopPlacement()
 	{
 		selectedBuildingSO = null;
+		lastSelectedBuildingSO = null;
 		InputManager.Instance.OnMouseLeftClick -= PlaceBuilding;
 		InputManager.Instance.OnExit -= StopPlacement;
 	}
@@ -106,23 +110,33 @@ public class PlacementSystem : Singleton<PlacementSystem>
 		PlacementData data = objectData.GetObjectAt(gridPosition);
 		if (selectedBuildingSO != null)
 		{
+			previewObject.SetActive(true);
+			if (selectedBuildingSO != lastSelectedBuildingSO)
+			{
+				previewObject.GetComponent<PreviewObject>().Init(selectedBuildingSO);
+			}
+			if (gridPosition != lastGridPosition)
+			{
+				previewObject.transform.position = grid.CellToWorld(gridPosition);
+			}
 			bool placementValidity = CheckPlacementValidity(gridPosition);
 			cellIndicatorSpriteRenderer.size = new Vector2(selectedBuildingSO.Size.x, selectedBuildingSO.Size.y);
-			cellIndicator.transform.position = (Vector2)grid.CellToWorld(gridPosition);
+			cellIndicator.transform.position = grid.CellToWorld(gridPosition);
 			cellIndicatorSpriteRenderer.color = placementValidity ? indicatorColors[IndicatorColor.Green] : indicatorColors[IndicatorColor.Red];
-		}
-		else if (data != null)
-		{
-			cellIndicator.transform.position = grid.CellToWorld(data.GridPosition);
-			cellIndicatorSpriteRenderer.size = new Vector2(data.BuildingSO.Size.x, data.BuildingSO.Size.y);
-			cellIndicatorSpriteRenderer.color = indicatorColors[IndicatorColor.Yellow];
 		}
 		else
 		{
-			cellIndicatorSpriteRenderer.size = Vector2.one;
-			cellIndicator.transform.position = (Vector2)grid.CellToWorld(gridPosition);
-			cellIndicatorSpriteRenderer.color = indicatorColors[IndicatorColor.Green];
+			if (gridPosition != lastGridPosition)
+			{
+				previewObject.SetActive(false);
+			}
+			cellIndicator.transform.position = grid.CellToWorld(gridPosition);
+			cellIndicatorSpriteRenderer.size = data != null ? new Vector2(data.BuildingSO.Size.x, data.BuildingSO.Size.y) : Vector2.one;
+			cellIndicatorSpriteRenderer.color = data != null ? indicatorColors[IndicatorColor.Yellow] : indicatorColors[IndicatorColor.Green];
 		}
+
+		lastGridPosition = gridPosition;
+		lastSelectedBuildingSO = selectedBuildingSO;
 	}
 }
 

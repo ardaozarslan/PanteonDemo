@@ -16,3 +16,5 @@ MonoBehaviour:
   _name: Power Plant
   _size: {x: 2, y: 3}
   _sprite: {fileID: 21300000, guid: 923ca1cac34adad47bf659a1605d8f07, type: 3}
+  _health: 50
+  productionList: []

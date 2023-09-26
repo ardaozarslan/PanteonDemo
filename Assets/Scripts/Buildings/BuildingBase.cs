@@ -21,7 +21,6 @@ public abstract class BuildingBase : MonoBehaviour
 		col2d = GetComponentInChildren<BoxCollider2D>();
 	}
 
-
 	/// <summary>
 	/// Initializes the building with the given BuildingSO.
 	/// </summary>

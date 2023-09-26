@@ -53,9 +53,9 @@ public class InputManager : Singleton<InputManager>
 		scrollData = Input.GetAxis("Mouse ScrollWheel");
 		if (scrollData != 0)
 		{
-			currentCameraSize = Mathf.Clamp(currentCameraSize - scrollData * 3, 2f, 20f);
+			currentCameraSize = Mathf.Clamp(currentCameraSize - scrollData * 5, 2f, 20f);
 		}
-		_camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, currentCameraSize, Time.deltaTime * 10);
+		_camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, currentCameraSize, Time.deltaTime * 5);
 	}
 
 	/// <summary>
@@ -64,7 +64,7 @@ public class InputManager : Singleton<InputManager>
 	public void CameraMove()
 	{
 		Vector3 move = new(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f);
-		currentCameraPosition += 5 * Time.deltaTime * move;
+		currentCameraPosition += 10 * Time.deltaTime * move;
 		// _camera.transform.position += 5 * Time.deltaTime * move;
 		_camera.transform.position = Vector3.Lerp(_camera.transform.position, currentCameraPosition, Time.deltaTime * 20);
 	}

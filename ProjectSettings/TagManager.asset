@@ -47,6 +47,9 @@ TagManager:
   - name: Building
     uniqueID: 4233406305
     locked: 0
+  - name: Preview
+    uniqueID: 866463301
+    locked: 0
   - name: CellIndicator
     uniqueID: 4082388233
     locked: 0

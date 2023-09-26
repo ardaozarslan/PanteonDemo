@@ -16,3 +16,5 @@ MonoBehaviour:
   _name: Wall
   _size: {x: 1, y: 1}
   _sprite: {fileID: 21300000, guid: bad70f4ed72cb3e41afd0ada7fe95bd0, type: 3}
+  _health: 10
+  productionList: []
