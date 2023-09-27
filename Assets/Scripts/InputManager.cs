@@ -51,7 +51,7 @@ public class InputManager : Singleton<InputManager>
 	{
 		float scrollData;
 		scrollData = Input.GetAxis("Mouse ScrollWheel");
-		if (scrollData != 0)
+		if (scrollData != 0 && !IsPointerOverUI())
 		{
 			currentCameraSize = Mathf.Clamp(currentCameraSize - scrollData * 5, 2f, 20f);
 		}
@@ -73,7 +73,7 @@ public class InputManager : Singleton<InputManager>
 	/// Checks if the pointer is currently over a UI element.
 	/// </summary>
 	/// <returns>True if the pointer is over a UI element, false otherwise.</returns>
-	public bool IsPinterOverUI() {
+	public bool IsPointerOverUI() {
 		return EventSystem.current.IsPointerOverGameObject();
 	}
 

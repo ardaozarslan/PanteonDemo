@@ -19,6 +19,12 @@ public class PlacementSystem : Singleton<PlacementSystem>
 
 	private List<GameObject> placedObjects = new();
 
+	private enum IndicatorColor
+	{
+		Red,
+		Green,
+		Yellow
+	}
 	private readonly Dictionary<IndicatorColor, Color> indicatorColors = new(){
 		{ IndicatorColor.Red, new Color(1, 0, 0, 0.6f) },
 		{ IndicatorColor.Green, new Color(0, 1, 0, 0.6f) },
@@ -58,7 +64,7 @@ public class PlacementSystem : Singleton<PlacementSystem>
 	/// </summary>
 	private void PlaceBuilding()
 	{
-		if (InputManager.Instance.IsPinterOverUI())
+		if (InputManager.Instance.IsPointerOverUI())
 		{
 			return;
 		}
@@ -138,11 +144,4 @@ public class PlacementSystem : Singleton<PlacementSystem>
 		lastGridPosition = gridPosition;
 		lastSelectedBuildingSO = selectedBuildingSO;
 	}
-}
-
-enum IndicatorColor
-{
-	Red,
-	Green,
-	Yellow
 }
