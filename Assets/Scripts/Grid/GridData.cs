@@ -14,11 +14,11 @@ public class GridData
 	/// </summary>
 	/// <param name="gridPosition">The position on the grid to place the object.</param>
 	/// <param name="objectSize">The size of the object to be placed.</param>
-	/// <param name="buildingSO">The BuildingSO object to be placed on the grid.</param>
+	/// <param name="boardObjectSO">The BoardObjectSO object to be placed on the grid.</param>
 	/// <exception cref="Exception">Thrown when trying to place an object at an occupied position.</exception>
-	public void AddObjectAt(Vector3Int gridPosition, BuildingSO buildingSO) {
-		List<Vector3Int> positionsToOccupy = CalculatePositions(gridPosition, buildingSO.Size);
-		PlacementData data = new(gridPosition, positionsToOccupy, buildingSO);
+	public void AddObjectAt(Vector3Int gridPosition, BoardObjectSO boardObjectSO) {
+		List<Vector3Int> positionsToOccupy = CalculatePositions(gridPosition, boardObjectSO.Size);
+		PlacementData data = new(gridPosition, positionsToOccupy, boardObjectSO);
 		foreach (Vector3Int position in positionsToOccupy) {
 			if (placedObjects.ContainsKey(position)) {
 				throw new Exception($"Trying to place an object at an occupied position {position}");
@@ -79,13 +79,13 @@ public class GridData
 public class PlacementData
 {
 	public List<Vector3Int> occupiedPositions;
-	public BuildingSO BuildingSO { get; private set; }
+	public BoardObjectSO BoardObjectSO { get; private set; }
 	public Vector3Int GridPosition { get; private set; }
 
-	public PlacementData(Vector3Int _gridPosition, List<Vector3Int> _occupiedPositions, BuildingSO _buildingSO)
+	public PlacementData(Vector3Int _gridPosition, List<Vector3Int> _occupiedPositions, BoardObjectSO _boardObjectSO)
 	{
 		GridPosition = _gridPosition;
 		occupiedPositions = _occupiedPositions;
-		BuildingSO = _buildingSO;
+		BoardObjectSO = _boardObjectSO;
 	}
 }

@@ -34,8 +34,6 @@ public class ProductionMenuItem : MonoBehaviour
 				buildingSO = _buildingSO;
 			}
 		}
-		buildingSO = _buildingSO;
-
 		buildingImage.sprite = _buildingSO.Sprite;
 		buildingImage.preserveAspect = true;
 		buildingNameText.text = _buildingSO.Name;

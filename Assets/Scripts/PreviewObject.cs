@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PreviewObject : BuildingBase
 {
-	public override void Init(BuildingSO _buildingSO)
+	public override void Init(BoardObjectSO _boardObjectSO)
 	{
-		base.Init(_buildingSO);
+		base.Init(_boardObjectSO);
 		Color color = spriteRenderer.color;
 		color.a = 0.5f;
 		spriteRenderer.color = color;

@@ -73,7 +73,8 @@ public class InputManager : Singleton<InputManager>
 	/// Checks if the pointer is currently over a UI element.
 	/// </summary>
 	/// <returns>True if the pointer is over a UI element, false otherwise.</returns>
-	public bool IsPointerOverUI() {
+	public bool IsPointerOverUI()
+	{
 		return EventSystem.current.IsPointerOverGameObject();
 	}
 

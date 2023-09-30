@@ -13,7 +13,7 @@ public class PlacementSystem : Singleton<PlacementSystem>
 
 	[SerializeField] private Grid grid;
 
-	private BuildingSO selectedBuildingSO, lastSelectedBuildingSO;
+	private BoardObjectSO selectedBoardObjectSO, lastSelectedBoardObjectSO;
 
 	private GridData objectData;
 
@@ -44,12 +44,12 @@ public class PlacementSystem : Singleton<PlacementSystem>
 	/// <summary>
 	/// Starts the placement of the selected building.
 	/// </summary>
-	/// <param name="_selectedBuildingSO">The selected building scriptable object.</param>
-	public void StartPlacement(BuildingSO _selectedBuildingSO)
+	/// <param name="_selectedBoardObjectSO">The selected building scriptable object.</param>
+	public void StartPlacement(BoardObjectSO _selectedBoardObjectSO)
 	{
 		StopPlacement();
-		selectedBuildingSO = _selectedBuildingSO;
-		if (selectedBuildingSO == null)
+		selectedBoardObjectSO = _selectedBoardObjectSO;
+		if (selectedBoardObjectSO == null)
 		{
 			Debug.LogError("No building selected");
 			return;
@@ -77,11 +77,11 @@ public class PlacementSystem : Singleton<PlacementSystem>
 			return;
 		}
 
-		GameObject newBuilding = Instantiate(selectedBuildingSO.Prefab, grid.CellToWorld(gridPosition), Quaternion.identity, buildingsParent.transform);
+		GameObject newBuilding = Instantiate(selectedBoardObjectSO.Prefab, grid.CellToWorld(gridPosition), Quaternion.identity, buildingsParent.transform);
 		newBuilding.transform.position = (Vector2)grid.CellToWorld(gridPosition);
-		newBuilding.GetComponent<BuildingBase>().Init(selectedBuildingSO);
+		newBuilding.GetComponent<BuildingBase>().Init(selectedBoardObjectSO);
 		placedObjects.Add(newBuilding);
-		objectData.AddObjectAt(gridPosition, selectedBuildingSO);
+		objectData.AddObjectAt(gridPosition, selectedBoardObjectSO);
 	}
 
 	/// <summary>
@@ -91,7 +91,7 @@ public class PlacementSystem : Singleton<PlacementSystem>
 	/// <returns>True if the placement is valid, false otherwise.</returns>
 	private bool CheckPlacementValidity(Vector3Int gridPosition)
 	{
-		return objectData.CanPlaceObjectAt(gridPosition, selectedBuildingSO.Size);
+		return objectData.CanPlaceObjectAt(gridPosition, selectedBoardObjectSO.Size);
 	}
 
 	/// <summary>
@@ -99,8 +99,8 @@ public class PlacementSystem : Singleton<PlacementSystem>
 	/// </summary>
 	private void StopPlacement()
 	{
-		selectedBuildingSO = null;
-		lastSelectedBuildingSO = null;
+		selectedBoardObjectSO = null;
+		lastSelectedBoardObjectSO = null;
 		InputManager.Instance.OnMouseLeftClick -= PlaceBuilding;
 		InputManager.Instance.OnExit -= StopPlacement;
 	}
@@ -110,23 +110,27 @@ public class PlacementSystem : Singleton<PlacementSystem>
 	/// </summary>
 	private void Update()
 	{
+		// if (InputManager.Instance.IsPointerOverUI())
+		// {
+		// 	return;
+		// }
 		Vector2 mousePosition = InputManager.Instance.GetSelectedMapPosition();
 		Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
 		PlacementData data = objectData.GetObjectAt(gridPosition);
-		if (selectedBuildingSO != null)
+		if (selectedBoardObjectSO != null)
 		{
 			previewObject.SetActive(true);
-			if (selectedBuildingSO != lastSelectedBuildingSO)
+			if (selectedBoardObjectSO != lastSelectedBoardObjectSO)
 			{
-				previewObject.GetComponent<PreviewObject>().Init(selectedBuildingSO);
+				previewObject.GetComponent<PreviewObject>().Init(selectedBoardObjectSO);
 			}
 			if (gridPosition != lastGridPosition)
 			{
 				previewObject.transform.position = grid.CellToWorld(gridPosition);
 			}
 			bool placementValidity = CheckPlacementValidity(gridPosition);
-			cellIndicatorSpriteRenderer.size = new Vector2(selectedBuildingSO.Size.x, selectedBuildingSO.Size.y);
+			cellIndicatorSpriteRenderer.size = new Vector2(selectedBoardObjectSO.Size.x, selectedBoardObjectSO.Size.y);
 			cellIndicator.transform.position = grid.CellToWorld(gridPosition);
 			cellIndicatorSpriteRenderer.color = placementValidity ? indicatorColors[IndicatorColor.Green] : indicatorColors[IndicatorColor.Red];
 		}
@@ -136,12 +140,12 @@ public class PlacementSystem : Singleton<PlacementSystem>
 			{
 				previewObject.SetActive(false);
 			}
-			cellIndicator.transform.position = grid.CellToWorld(gridPosition);
-			cellIndicatorSpriteRenderer.size = data != null ? new Vector2(data.BuildingSO.Size.x, data.BuildingSO.Size.y) : Vector2.one;
+			cellIndicator.transform.position = data != null ? grid.CellToWorld(data.GridPosition) : grid.CellToWorld(gridPosition);
+			cellIndicatorSpriteRenderer.size = data != null ? new Vector2(data.BoardObjectSO.Size.x, data.BoardObjectSO.Size.y) : Vector2.one;
 			cellIndicatorSpriteRenderer.color = data != null ? indicatorColors[IndicatorColor.Yellow] : indicatorColors[IndicatorColor.Green];
 		}
 
 		lastGridPosition = gridPosition;
-		lastSelectedBuildingSO = selectedBuildingSO;
+		lastSelectedBoardObjectSO = selectedBoardObjectSO;
 	}
 }
