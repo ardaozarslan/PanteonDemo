@@ -16,7 +16,7 @@ public class InformationMenuProduct : MonoBehaviour
 	public BoardObjectSO BoardObjectSO { get { return boardObjectSO; } }
 
 	[SerializeField] private TextMeshProUGUI boardObjectNameText;
-	// [SerializeField] private TextMeshProUGUI boardObjectSizeText;
+	[SerializeField] private TextMeshProUGUI boardObjectSizeText;
 
 	/// <summary>
 	/// Initializes the InformationMenuProduct with the given BoardObjectSO.
@@ -28,7 +28,7 @@ public class InformationMenuProduct : MonoBehaviour
 		boardObjectImage.sprite = _boardObjectSO.Sprite;
 		boardObjectImage.preserveAspect = true;
 		boardObjectNameText.text = _boardObjectSO.Name;
-		// boardObjectSizeText.text = _boardObjectSO.Size.x + "x" + _boardObjectSO.Size.y;
+		boardObjectSizeText.text = _boardObjectSO.Size.x + "x" + _boardObjectSO.Size.y;
 	}
 
 	/// <summary>

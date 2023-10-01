@@ -19,4 +19,5 @@ public class BoardObjectSO : ScriptableObject
 	public Vector2Int Size { get { return _size; } }
 	public Sprite Sprite { get { return _sprite; } }
 	public int Health { get { return _health; } }
+	public virtual List<BoardObjectSO> Products { get { return new(); } }
 }

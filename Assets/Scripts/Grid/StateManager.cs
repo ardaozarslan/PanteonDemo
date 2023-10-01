@@ -84,6 +84,7 @@ public class StateManager : Singleton<StateManager>
 		gameState = new InformationState(grid, objectData, cellIndicator);
 
 		InputManager.Instance.OnMouseLeftClick += ShowInformation;
+		InputManager.Instance.OnMouseRightClick += SecondaryAction;
 		InputManager.Instance.OnExit += HideInformation;
 	}
 
@@ -94,14 +95,23 @@ public class StateManager : Singleton<StateManager>
 		gameState?.OnAction(gridPosition);
 	}
 
-	private void HideInformation() {
+	private void SecondaryAction() {
+		Vector2 mousePosition = InputManager.Instance.GetSelectedMapPosition();
+		Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
+		gameState?.OnSecondaryAction(gridPosition);
+	}
+
+	private void HideInformation() {
+		EventManager.Instance.ShowInformation(null);
 	}
 
 	private void StopInformation() {
 		gameState?.EndState();
 		InputManager.Instance.OnMouseLeftClick -= ShowInformation;
+		InputManager.Instance.OnMouseRightClick -= SecondaryAction;
 		InputManager.Instance.OnExit -= HideInformation;
+		HideInformation();
 		gameState = null;
 	}
 

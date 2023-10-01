@@ -13,12 +13,10 @@ public class InformationState : IGameState
 
 	public InformationState(Grid _grid, GridData _objectData, CellIndicator _cellIndicator)
 	{
-
 		grid = _grid;
 		objectData = _objectData;
 		cellIndicator = _cellIndicator;
 		cellIndicatorSpriteRenderer = cellIndicator.GetComponentInChildren<SpriteRenderer>();
-
 	}
 
 	public void EndState()
@@ -36,11 +34,31 @@ public class InformationState : IGameState
 
 		gameObjectIndex = objectData.GetRepresentationIndex(gridPosition);
 		if (gameObjectIndex == -1)
+		{
+			EventManager.Instance.ShowInformation(null);
 			return;
+		}
 
 		selectedGameObject = ObjectPlacer.Instance.GetObjectAt(gameObjectIndex);
-		// TODO: Show information about the selected object
+		EventManager.Instance.ShowInformation(selectedGameObject);
 
+	}
+
+	public void OnSecondaryAction(Vector3Int gridPosition)
+	{
+		if (InputManager.Instance.IsPointerOverUI())
+		{
+			return;
+		}
+
+		// TODO: add soldier check
+		if (selectedGameObject == null)
+		{
+			return;
+		}
+
+		// TODO: implement soldier movement
+		return;
 	}
 
 	public void UpdateState(Vector3Int gridPosition, Vector3Int lastGridPosition)

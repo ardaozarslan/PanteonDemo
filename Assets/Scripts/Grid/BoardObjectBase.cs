@@ -14,6 +14,11 @@ public abstract class BoardObjectBase : MonoBehaviour
 	protected SpriteRenderer spriteRenderer;
 	protected BoxCollider2D col2d;
 	protected BoardObjectSO boardObjectSO;
+	public BoardObjectSO BoardObjectSO
+	{
+		get { return boardObjectSO; }
+		private set { boardObjectSO = value; }
+	}
 
 	private void Awake()
 	{
@@ -27,9 +32,9 @@ public abstract class BoardObjectBase : MonoBehaviour
 	/// <param name="_boardObjectSO">The BoardObjectSO to use for initialization.</param>
 	public virtual void Init(BoardObjectSO _boardObjectSO)
 	{
-		boardObjectSO = _boardObjectSO;
-		objectSize = boardObjectSO.Size;
-		spriteRenderer.sprite = boardObjectSO.Sprite;
+		BoardObjectSO = _boardObjectSO;
+		objectSize = BoardObjectSO.Size;
+		spriteRenderer.sprite = BoardObjectSO.Sprite;
 		col2d.size = spriteRenderer.sprite.bounds.size;
 
 		// Moves the spriteObject local position to the bottom left corner

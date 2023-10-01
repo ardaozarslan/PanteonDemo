@@ -59,6 +59,11 @@ public class PlacementState : IGameState
 		objectData.AddObjectAt(gridPosition, selectedBoardObjectSO, index);
 	}
 
+	public void OnSecondaryAction(Vector3Int gridPosition)
+	{
+		return;
+	}
+
 	/// <summary>
 	/// Checks if the placement of the object at the given grid position is valid.
 	/// </summary>

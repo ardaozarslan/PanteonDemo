@@ -18,7 +18,7 @@ public class InputManager : Singleton<InputManager>
 	private float currentCameraSize;
 	private Vector3 currentCameraPosition;
 
-	public event Action OnMouseLeftClick, OnExit;
+	public event Action OnMouseLeftClick, OnMouseRightClick, OnExit;
 
 	private void Start()
 	{
@@ -86,6 +86,10 @@ public class InputManager : Singleton<InputManager>
 		if (Input.GetMouseButtonDown(0))
 		{
 			OnMouseLeftClick?.Invoke();
+		}
+		if (Input.GetMouseButtonDown(1))
+		{
+			OnMouseRightClick?.Invoke();
 		}
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
