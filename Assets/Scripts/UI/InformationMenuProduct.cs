@@ -25,7 +25,7 @@ public class InformationMenuProduct : MonoBehaviour
 	public void Init(BoardObjectSO _boardObjectSO)
 	{
 		boardObjectSO = _boardObjectSO;
-		boardObjectImage.sprite = _boardObjectSO.Sprite;
+		boardObjectImage.sprite = _boardObjectSO.Atlas.GetSprite(_boardObjectSO.SpriteName);
 		boardObjectImage.preserveAspect = true;
 		boardObjectNameText.text = _boardObjectSO.Name;
 		boardObjectSizeText.text = _boardObjectSO.Size.x + "x" + _boardObjectSO.Size.y;
@@ -37,5 +37,6 @@ public class InformationMenuProduct : MonoBehaviour
 	public void OnClick()
 	{
 		// TODO: Spawn the product associated with this item.
+		InformationMenuManager.Instance.SpawnProduct(boardObjectSO);
 	}
 }

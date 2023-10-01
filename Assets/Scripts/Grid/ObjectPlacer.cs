@@ -25,7 +25,7 @@ public class ObjectPlacer : Singleton<ObjectPlacer>
 		// {
 		// 	throw new Exception("Unknown BoardObjectSO type");
 		// }
-		newBoardObject.GetComponent<BuildingBase>().Init(selectedBoardObjectSO);
+		newBoardObject.GetComponent<BoardObjectBase>().Init(selectedBoardObjectSO);
 		placedGameObjects.Add(newBoardObject);
 		return placedGameObjects.Count - 1;
 	}

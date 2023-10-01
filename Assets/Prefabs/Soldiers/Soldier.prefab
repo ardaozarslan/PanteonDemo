@@ -74,3 +74,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ffb245492a11b42b2e4ba2905125c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteObject: {fileID: 6838204245033230214}
+--- !u!1 &6838204245033230214 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5423889979019730081, guid: c517dd64e93d0b145aafb52bd78e5407, type: 3}
+  m_PrefabInstance: {fileID: 1559276491433542439}
+  m_PrefabAsset: {fileID: 0}

@@ -34,7 +34,7 @@ public class ProductionMenuItem : MonoBehaviour
 				buildingSO = _buildingSO;
 			}
 		}
-		buildingImage.sprite = _buildingSO.Sprite;
+		buildingImage.sprite = _buildingSO.Atlas.GetSprite(_buildingSO.SpriteName);
 		buildingImage.preserveAspect = true;
 		buildingNameText.text = _buildingSO.Name;
 		buildingSizeText.text = _buildingSO.Size.x + "x" + _buildingSO.Size.y;

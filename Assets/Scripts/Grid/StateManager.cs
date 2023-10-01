@@ -39,6 +39,16 @@ public class StateManager : Singleton<StateManager>
 		StartInformation();
 	}
 
+	private void OnEnable()
+	{
+		EventManager.Instance.OnSpawnProductEvent += SpawnProduct;
+	}
+
+	private void OnDisable()
+	{
+		EventManager.Instance.OnSpawnProductEvent -= SpawnProduct;
+	}
+
 	/// <summary>
 	/// Starts the placement of the selected board object.
 	/// </summary>
@@ -88,31 +98,55 @@ public class StateManager : Singleton<StateManager>
 		InputManager.Instance.OnExit += HideInformation;
 	}
 
-	private void ShowInformation() {
+	private void ShowInformation()
+	{
 		Vector2 mousePosition = InputManager.Instance.GetSelectedMapPosition();
 		Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
 		gameState?.OnAction(gridPosition);
 	}
 
-	private void SecondaryAction() {
+	private void SecondaryAction()
+	{
 		Vector2 mousePosition = InputManager.Instance.GetSelectedMapPosition();
 		Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
 		gameState?.OnSecondaryAction(gridPosition);
 	}
 
-	private void HideInformation() {
+	private void HideInformation()
+	{
 		EventManager.Instance.ShowInformation(null);
 	}
 
-	private void StopInformation() {
+	private void StopInformation()
+	{
 		gameState?.EndState();
 		InputManager.Instance.OnMouseLeftClick -= ShowInformation;
 		InputManager.Instance.OnMouseRightClick -= SecondaryAction;
 		InputManager.Instance.OnExit -= HideInformation;
 		HideInformation();
 		gameState = null;
+	}
+
+	private void SpawnProduct(BoardObjectSO productSO, GameObject spawnerGameObject)
+	{
+		int index = ObjectPlacer.Instance.PlaceObject(productSO.Prefab, productSO, spawnerGameObject.transform.position);
+		Vector3Int gridPosition = grid.WorldToCell(spawnerGameObject.transform.position);
+
+		PlacementData dummyData = null;
+		if (objectData.placedObjects.ContainsKey(gridPosition))
+		{
+			dummyData = objectData.placedObjects[gridPosition];
+			objectData.placedObjects.Remove(gridPosition);
+		}
+		objectData.AddObjectAt(gridPosition, productSO, index);
+		// TODO: when product moves, readd the original object
+		// if (dummyData != null)
+		// {
+		// 	objectData.placedObjects.Remove(gridPosition);
+		// 	objectData.AddObjectAt(gridPosition, dummyData.BoardObjectSO, dummyData.PlacedObjectIndex);
+		// }
 	}
 
 	/// <summary>

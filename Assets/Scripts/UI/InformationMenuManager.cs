@@ -16,8 +16,11 @@ public class InformationMenuManager : Singleton<InformationMenuManager>
 	[SerializeField] private RectTransform informationMenuContent;
 	[SerializeField] private RectTransform informationMenuProductPrefab;
 	[SerializeField] private RectTransform productsHeader;
+	[SerializeField] private RectTransform productsScroll;
 	[SerializeField] private TextMeshProUGUI selectedObjectNameText;
 	[SerializeField] private Image selectedObjectImage;
+
+	private int lastWindowHeight;
 
 	private void Awake()
 	{
@@ -53,7 +56,7 @@ public class InformationMenuManager : Singleton<InformationMenuManager>
 		}
 
 		selectedObjectNameText.text = selectedObjectSO.Name;
-		selectedObjectImage.sprite = selectedObjectSO.Sprite;
+		selectedObjectImage.sprite = selectedObjectSO.Atlas.GetSprite(selectedObjectSO.SpriteName);
 
 		foreach (Transform child in informationMenuContent.transform)
 		{
@@ -78,8 +81,23 @@ public class InformationMenuManager : Singleton<InformationMenuManager>
 		lastSelectedObjectSO = selectedObjectSO;
 	}
 
+	public void SpawnProduct(BoardObjectSO productSO)
+	{
+		if (selectedGameObject == null)
+		{
+			return;
+		}
+		// TODO: Spawn the product associated with this item at the position of the selected object.
+		EventManager.Instance.SpawnProduct(productSO, selectedGameObject);
+	}
+
 	private void Update()
 	{
-
+		if (Screen.height != lastWindowHeight)
+		{
+			Canvas.ForceUpdateCanvases();
+			lastWindowHeight = Screen.height;
+			productsScroll.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, productsScroll.position.y - 25);
+		}
 	}
 }

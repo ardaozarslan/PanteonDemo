@@ -531,8 +531,8 @@ RectTransform:
   m_Father: {fileID: 1308264009}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.046931557, y: 0.092638135}
-  m_AnchorMax: {x: 0.95306844, y: 0.90736187}
+  m_AnchorMin: {x: 0.07577748, y: 0.11154002}
+  m_AnchorMax: {x: 0.9242225, y: 0.88846}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -585,10 +585,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 39.95
   m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -1993,10 +1993,10 @@ RectTransform:
   m_Father: {fileID: 1308264009}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: -0.046377253, y: -9.182032}
-  m_AnchorMax: {x: 1.0483094, y: -0.29055488}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: -0.046376787, y: -0.29055488}
+  m_AnchorMax: {x: 1.0484277, y: -0.29055488}
+  m_AnchoredPosition: {x: 0.000015258789, y: -0.000061035156}
+  m_SizeDelta: {x: 0, y: 491}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1059890603
 MonoBehaviour:
@@ -2938,10 +2938,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.6
   m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -3082,6 +3082,7 @@ MonoBehaviour:
   informationMenuContent: {fileID: 247217652}
   informationMenuProductPrefab: {fileID: 2119480485535377317, guid: fd7f2879d85c8834b85bcf15a145e10f, type: 3}
   productsHeader: {fileID: 1308264009}
+  productsScroll: {fileID: 1059890602}
   selectedObjectNameText: {fileID: 1775982284}
   selectedObjectImage: {fileID: 1358346081}
 --- !u!225 &2140473282

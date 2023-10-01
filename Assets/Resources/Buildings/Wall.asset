@@ -15,6 +15,7 @@ MonoBehaviour:
   _prefab: {fileID: 6694315942064909676, guid: 796232868931ef04fbd9cb2451daed61, type: 3}
   _name: Wall
   _size: {x: 1, y: 1}
-  _sprite: {fileID: 21300000, guid: bad70f4ed72cb3e41afd0ada7fe95bd0, type: 3}
+  _atlas: {fileID: 4343727234628468602, guid: 0be7d2a68ca5ae34594976f2cecb4000, type: 2}
+  _spriteName: Wall
   _health: 10
-  productionList: []
+  _products: []

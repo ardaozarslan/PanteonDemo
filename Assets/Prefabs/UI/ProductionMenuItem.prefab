@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1203100047427197120}
   - component: {fileID: 4084948383759673818}
   - component: {fileID: 9162366358020853266}
+  - component: {fileID: 302391316554332911}
   - component: {fileID: 598399260235545094}
   - component: {fileID: 2576618677693051485}
   m_Layer: 5
@@ -98,6 +99,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &302391316554332911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119480485535377314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffffbec482b2a414580a81fe22862804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atlas: {fileID: 4343727234628468602, guid: 0be7d2a68ca5ae34594976f2cecb4000, type: 2}
+  spriteName: ProductionItemUI
 --- !u!114 &598399260235545094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,8 +291,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.695, g: 0.695, b: 0.695, a: 1}
+    m_PressedColor: {r: 0.461, g: 0.461, b: 0.461, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -310,7 +325,57 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  betterTransitions: []
+  betterTransitions:
+  - mode: 0
+    stateNames:
+    - Normal
+    - Highlighted
+    - Pressed
+    - Selected
+    - Disabled
+    colorTransitions:
+      target: {fileID: 0}
+      colorMultiplier: 0
+      fadeDuration: 0
+      affectedColor: 0
+      states: []
+    color32Transitions:
+      target: {fileID: 0}
+      fadeDuration: 0
+      states: []
+    spriteSwapTransitions:
+      target: {fileID: 0}
+      states: []
+    animationTransitions:
+      target: {fileID: 0}
+      states: []
+    activenessTransitions:
+      target: {fileID: 0}
+      states: []
+    alphaTransitions:
+      target: {fileID: 0}
+      fadeDuration: 0
+      states: []
+    materialPropertyTransitions:
+      target: {fileID: 0}
+      fadeDuration: 0.1
+      states:
+      - Name: Normal
+        StateObject: 1
+      - Name: Highlighted
+        StateObject: 1
+      - Name: Pressed
+        StateObject: 1
+      - Name: Selected
+        StateObject: 1
+      - Name: Disabled
+        StateObject: 1
+      propertyIndex: 0
+    locationAnimationTransitions:
+      target: {fileID: 0}
+      states: []
+    customTransitions:
+      states: []
 --- !u!1 &3795998287411668842
 GameObject:
   m_ObjectHideFlags: 0

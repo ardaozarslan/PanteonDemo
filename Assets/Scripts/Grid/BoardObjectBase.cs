@@ -34,7 +34,7 @@ public abstract class BoardObjectBase : MonoBehaviour
 	{
 		BoardObjectSO = _boardObjectSO;
 		objectSize = BoardObjectSO.Size;
-		spriteRenderer.sprite = BoardObjectSO.Sprite;
+		spriteRenderer.sprite = BoardObjectSO.Atlas.GetSprite(BoardObjectSO.SpriteName);
 		col2d.size = spriteRenderer.sprite.bounds.size;
 
 		// Moves the spriteObject local position to the bottom left corner
