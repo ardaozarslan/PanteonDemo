@@ -51,6 +51,6 @@ public class ProductionMenuItem : MonoBehaviour
 			cloneOf.OnClick();
 			return;
 		}
-		PlacementSystem.Instance.StartPlacement(buildingSO);
+		StateManager.Instance.StartPlacement(buildingSO);
 	}
 }

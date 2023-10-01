@@ -35,5 +35,4 @@ public abstract class BoardObjectBase : MonoBehaviour
 		// Moves the spriteObject local position to the bottom left corner
 		spriteObject.transform.localPosition = new Vector3(Mathf.CeilToInt(objectSize.x / 2f) + (objectSize.x % 2f == 0 ? 0 : -0.5f), Mathf.CeilToInt(objectSize.y / 2f) + (objectSize.y % 2f == 0 ? 0 : -0.5f), 0);
 	}
-
 }

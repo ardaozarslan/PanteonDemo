@@ -13,7 +13,7 @@ public abstract class SoldierBase : BoardObjectBase
 	/// Initializes the soldier with the given SoldierSO.
 	/// </summary>
 	/// <param name="_soldierSO">The SoldierSO to use for initialization.</param>
-	public virtual void Init(SoldierSO _soldierSO)
+	public override void Init(BoardObjectSO _soldierSO)
 	{
 		base.Init(_soldierSO);
 	}

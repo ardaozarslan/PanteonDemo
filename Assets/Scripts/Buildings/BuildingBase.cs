@@ -13,7 +13,7 @@ public abstract class BuildingBase : BoardObjectBase
 	/// Initializes the building with the given BuildingSO.
 	/// </summary>
 	/// <param name="_buildingSO">The BuildingSO to use for initialization.</param>
-	public virtual void Init(BuildingSO _buildingSO)
+	public override void Init(BoardObjectSO _buildingSO)
 	{
 		base.Init(_buildingSO);
 	}
