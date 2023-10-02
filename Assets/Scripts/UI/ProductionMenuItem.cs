@@ -34,7 +34,7 @@ public class ProductionMenuItem : MonoBehaviour
 				buildingSO = _buildingSO;
 			}
 		}
-		buildingImage.sprite = _buildingSO.Atlas.GetSprite(_buildingSO.SpriteName);
+		buildingImage.sprite = _buildingSO.Sprite;
 		buildingImage.preserveAspect = true;
 		buildingNameText.text = _buildingSO.Name;
 		buildingSizeText.text = _buildingSO.Size.x + "x" + _buildingSO.Size.y;
@@ -51,6 +51,6 @@ public class ProductionMenuItem : MonoBehaviour
 			cloneOf.OnClick();
 			return;
 		}
-		StateManager.Instance.StartPlacement(buildingSO);
+		GameManager.Instance.StartPlacement(buildingSO);
 	}
 }

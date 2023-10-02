@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TheraBytes.BetterUi;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,13 +51,14 @@ public class InformationMenuManager : Singleton<InformationMenuManager>
 		ShowPanel(true);
 		selectedGameObject = shownGameObject;
 		selectedObjectSO = shownGameObject.GetComponent<BoardObjectBase>().BoardObjectSO;
+		informationMenuContent.position = new Vector3(informationMenuContent.position.x, productsScroll.position.y, informationMenuContent.position.z);
 		if (selectedObjectSO == lastSelectedObjectSO)
 		{
 			return;
 		}
 
 		selectedObjectNameText.text = selectedObjectSO.Name;
-		selectedObjectImage.sprite = selectedObjectSO.Atlas.GetSprite(selectedObjectSO.SpriteName);
+		selectedObjectImage.sprite = selectedObjectSO.Sprite;
 
 		foreach (Transform child in informationMenuContent.transform)
 		{
@@ -77,6 +79,7 @@ public class InformationMenuManager : Singleton<InformationMenuManager>
 			newInformationMenuProduct.GetComponent<InformationMenuProduct>().Init(productSO);
 			newInformationMenuProduct.name = productSO.name;
 		}
+		informationMenuContent.position = new Vector3(informationMenuContent.position.x, productsScroll.position.y, informationMenuContent.position.z);
 
 		lastSelectedObjectSO = selectedObjectSO;
 	}
@@ -87,7 +90,6 @@ public class InformationMenuManager : Singleton<InformationMenuManager>
 		{
 			return;
 		}
-		// TODO: Spawn the product associated with this item at the position of the selected object.
 		EventManager.Instance.SpawnProduct(productSO, selectedGameObject);
 	}
 

@@ -39,7 +39,7 @@ public class PlacementState : IGameState
 		lastSelectedBoardObjectSO = null;
 		previewObject.gameObject.SetActive(false);
 		cellIndicatorSpriteRenderer.size = Vector2.one;
-		cellIndicatorSpriteRenderer.color = StateManager.Instance.indicatorColors[StateManager.IndicatorColor.Green];
+		cellIndicatorSpriteRenderer.color = GameManager.Instance.indicatorColors[GameManager.IndicatorColor.Green];
 	}
 
 	public void OnAction(Vector3Int gridPosition)
@@ -91,7 +91,7 @@ public class PlacementState : IGameState
 			bool placementValidity = CheckPlacementValidity(gridPosition);
 			cellIndicatorSpriteRenderer.size = new Vector2(selectedBoardObjectSO.Size.x, selectedBoardObjectSO.Size.y);
 			cellIndicator.transform.position = grid.CellToWorld(gridPosition);
-			cellIndicatorSpriteRenderer.color = placementValidity ? StateManager.Instance.indicatorColors[StateManager.IndicatorColor.Green] : StateManager.Instance.indicatorColors[StateManager.IndicatorColor.Red];
+			cellIndicatorSpriteRenderer.color = placementValidity ? GameManager.Instance.indicatorColors[GameManager.IndicatorColor.Green] : GameManager.Instance.indicatorColors[GameManager.IndicatorColor.Red];
 		}
 
 		lastSelectedBoardObjectSO = selectedBoardObjectSO;

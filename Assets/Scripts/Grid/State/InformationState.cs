@@ -22,7 +22,7 @@ public class InformationState : IGameState
 	public void EndState()
 	{
 		cellIndicatorSpriteRenderer.size = Vector2.one;
-		cellIndicatorSpriteRenderer.color = StateManager.Instance.indicatorColors[StateManager.IndicatorColor.Green];
+		cellIndicatorSpriteRenderer.color = GameManager.Instance.indicatorColors[GameManager.IndicatorColor.Green];
 	}
 
 	public void OnAction(Vector3Int gridPosition)
@@ -51,13 +51,23 @@ public class InformationState : IGameState
 			return;
 		}
 
-		// TODO: add soldier check
-		if (selectedGameObject == null)
+		BoardObjectBase selectedBoardObject = selectedGameObject.GetComponent<BoardObjectBase>();
+
+		if (selectedGameObject == null || selectedBoardObject is not SoldierBase)
 		{
 			return;
 		}
 
 		// TODO: implement soldier movement
+		Debug.Log("soldier right clicked");
+		PlacementData _placementData = objectData.GetObjectAt(gridPosition);
+		if (_placementData == null)
+		{
+			(selectedBoardObject as SoldierBase).SetTargetTile(GridManager.Instance.GetTileAtPosition(gridPosition));
+		}
+		else {
+			(selectedBoardObject as SoldierBase).SetTargetObject(_placementData);
+		}
 		return;
 	}
 
@@ -67,7 +77,7 @@ public class InformationState : IGameState
 
 		cellIndicator.transform.position = data != null ? grid.CellToWorld(data.GridPosition) : grid.CellToWorld(gridPosition);
 		cellIndicatorSpriteRenderer.size = data != null ? new Vector2(data.BoardObjectSO.Size.x, data.BoardObjectSO.Size.y) : Vector2.one;
-		cellIndicatorSpriteRenderer.color = data != null ? StateManager.Instance.indicatorColors[StateManager.IndicatorColor.Yellow] : StateManager.Instance.indicatorColors[StateManager.IndicatorColor.Green];
+		cellIndicatorSpriteRenderer.color = data != null ? GameManager.Instance.indicatorColors[GameManager.IndicatorColor.Yellow] : GameManager.Instance.indicatorColors[GameManager.IndicatorColor.Green];
 
 	}
 }

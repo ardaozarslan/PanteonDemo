@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -7,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class GridData
 {
-	public Dictionary<Vector3Int, PlacementData> placedObjects = new();
+	public Dictionary<Vector3Int, List<PlacementData>> placedObjects = new();
 
 	/// <summary>
 	/// Adds a building object to the grid at the specified position and size.
@@ -25,9 +26,58 @@ public class GridData
 		{
 			if (placedObjects.ContainsKey(position))
 			{
-				throw new Exception($"Trying to place an object at an occupied position {position}");
+				// throw new Exception($"Trying to place an object at an occupied position {position}");
+				placedObjects[position].Add(data);
 			}
-			placedObjects.Add(position, data);
+			else
+			{
+				placedObjects.Add(position, new List<PlacementData>() { data });
+			}
+		}
+	}
+
+	public void AddToOccupationList(int boardObjectIndex, List<Vector3Int> occupationPositions, Vector3Int newOccupationPosition)
+	{
+		List<Vector3Int> positionsToOccupy = occupationPositions.Concat(new List<Vector3Int>() { newOccupationPosition }).ToList();
+		PlacementData data = null;
+		foreach (Vector3Int position in occupationPositions)
+		{
+			if (placedObjects.ContainsKey(position))
+			{
+				PlacementData _data = placedObjects[position].Where(x => x.PlacedObjectIndex == boardObjectIndex).First();
+				_data.OccupiedPositions = positionsToOccupy;
+				_data.GridPosition = newOccupationPosition;
+				data = _data;
+			}
+		}
+		if (placedObjects.ContainsKey(newOccupationPosition))
+		{
+			placedObjects[newOccupationPosition].Add(data);
+		}
+		else {
+			placedObjects.Add(newOccupationPosition, new List<PlacementData>() { data });
+		}
+	}
+
+	public void RemoveFromOccupationList(int boardObjectIndex, List<Vector3Int> occupationPositions, Vector3Int occupationPositionToRemove)
+	{
+		List<Vector3Int> positionsToOccupy = occupationPositions.Where(x => x != occupationPositionToRemove).ToList();
+		PlacementData data = null;
+		foreach (Vector3Int position in occupationPositions)
+		{
+			if (placedObjects.ContainsKey(position))
+			{
+				PlacementData _data = placedObjects[position].Where(x => x.PlacedObjectIndex == boardObjectIndex).First();
+				_data.OccupiedPositions = positionsToOccupy;
+				data = _data;
+			}
+		}
+		if (!placedObjects.ContainsKey(occupationPositionToRemove))
+		{
+			throw new Exception($"Trying to remove an object at an empty position {occupationPositionToRemove}");
+		}
+		else {
+			placedObjects[occupationPositionToRemove].Remove(data);
 		}
 	}
 
@@ -40,7 +90,7 @@ public class GridData
 	{
 		if (placedObjects.ContainsKey(gridPosition))
 		{
-			return placedObjects[gridPosition];
+			return placedObjects[gridPosition].Count > 0 ? placedObjects[gridPosition].Last() : null;
 		}
 		return null;
 	}
@@ -76,7 +126,7 @@ public class GridData
 		List<Vector3Int> positionsToOccupy = CalculatePositions(gridPosition, objectSize);
 		foreach (Vector3Int position in positionsToOccupy)
 		{
-			if (placedObjects.ContainsKey(position))
+			if (placedObjects.ContainsKey(position) && placedObjects[position].Count > 0)
 			{
 				return false;
 			}
@@ -97,7 +147,7 @@ public class GridData
 			return -1;
 
 		}
-		return placedObjects[gridPosition].PlacedObjectIndex;
+		return placedObjects[gridPosition].Count > 0 ? placedObjects[gridPosition].Last().PlacedObjectIndex : -1;
 	}
 
 	/// <summary>
@@ -106,10 +156,19 @@ public class GridData
 	/// <param name="gridPosition">The grid position of the object to remove.</param>
 	public void RemoveObjectAt(Vector3Int gridPosition)
 	{
-		foreach (var pos in placedObjects[gridPosition].occupiedPositions)
+		foreach (var pos in placedObjects[gridPosition].Last().OccupiedPositions)
 		{
-			placedObjects.Remove(pos);
+			placedObjects[pos].Remove(placedObjects[gridPosition].Last());
 		}
+	}
+
+	public bool IsWalkable(Vector3Int gridPosition)
+	{
+		if (placedObjects.ContainsKey(gridPosition) && placedObjects[gridPosition].Count > 0)
+		{
+			return false;
+		}
+		return true;
 	}
 }
 
@@ -118,15 +177,15 @@ public class GridData
 /// </summary>
 public class PlacementData
 {
-	public List<Vector3Int> occupiedPositions;
+	public List<Vector3Int> OccupiedPositions {get; set;}
 	public BoardObjectSO BoardObjectSO { get; private set; }
-	public Vector3Int GridPosition { get; private set; }
+	public Vector3Int GridPosition { get; set; }
 	public int PlacedObjectIndex { get; private set; }
 
 	public PlacementData(Vector3Int _gridPosition, List<Vector3Int> _occupiedPositions, BoardObjectSO _boardObjectSO, int _placeObjectIndex)
 	{
 		GridPosition = _gridPosition;
-		occupiedPositions = _occupiedPositions;
+		OccupiedPositions = _occupiedPositions;
 		BoardObjectSO = _boardObjectSO;
 		PlacedObjectIndex = _placeObjectIndex;
 	}

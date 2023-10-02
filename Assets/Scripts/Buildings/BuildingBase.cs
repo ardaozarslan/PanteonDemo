@@ -13,9 +13,9 @@ public abstract class BuildingBase : BoardObjectBase
 	/// Initializes the building with the given BuildingSO.
 	/// </summary>
 	/// <param name="_buildingSO">The BuildingSO to use for initialization.</param>
-	public override void Init(BoardObjectSO _buildingSO)
+	public override void Init(BoardObjectSO _buildingSO, int _boardObjectIndex = -1)
 	{
-		base.Init(_buildingSO);
+		base.Init(_buildingSO, _boardObjectIndex);
 	}
 
 }

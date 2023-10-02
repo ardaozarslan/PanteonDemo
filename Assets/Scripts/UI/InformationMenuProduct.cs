@@ -25,7 +25,7 @@ public class InformationMenuProduct : MonoBehaviour
 	public void Init(BoardObjectSO _boardObjectSO)
 	{
 		boardObjectSO = _boardObjectSO;
-		boardObjectImage.sprite = _boardObjectSO.Atlas.GetSprite(_boardObjectSO.SpriteName);
+		boardObjectImage.sprite = _boardObjectSO.Sprite;
 		boardObjectImage.preserveAspect = true;
 		boardObjectNameText.text = _boardObjectSO.Name;
 		boardObjectSizeText.text = _boardObjectSO.Size.x + "x" + _boardObjectSO.Size.y;

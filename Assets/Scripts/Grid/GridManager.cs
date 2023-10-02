@@ -16,6 +16,9 @@ public class GridManager : Singleton<GridManager>
 
 	[SerializeField] private GameObject tilesParent;
 
+	[SerializeField] private Grid grid;
+	public Grid Grid { get { return grid; } }
+
 	private void Awake()
 	{
 		GenerateGrid();
@@ -39,6 +42,8 @@ public class GridManager : Singleton<GridManager>
 		}
 		// This will set the camera to the center of the grid
 		_cam.transform.position = new Vector3(_width / 2f - 0.5f, _height / 2f - 0.5f, -10);
+
+		foreach (var tile in _tiles.Values) tile.CacheNeighbors();
 	}
 
 	/// <summary>
@@ -53,5 +58,11 @@ public class GridManager : Singleton<GridManager>
 			return _tiles[gridPos];
 		}
 		return null;
+	}
+
+	public Tile GetTileAtPosition(Vector3 worldPos)
+	{
+		Vector2Int gridPos = (Vector2Int)grid.WorldToCell(worldPos);
+		return GetTileAtPosition(gridPos);
 	}
 }

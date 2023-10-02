@@ -1,19 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
-/// Singleton class that handles the placement of buildings on a grid.
+/// Singleton class that is responsible for managing the game state, initializing the game objects handles, and the placement of buildings on a grid.
 /// </summary>
-public class StateManager : Singleton<StateManager>
+public class GameManager : Singleton<GameManager>
 {
 	// [SerializeField] GameObject boardObjectsParent;
 	public CellIndicator cellIndicator;
 	public PreviewObject previewObject;
 
-	[SerializeField] private Grid grid;
+	public Grid Grid => GridManager.Instance.Grid;
 
 	private GridData objectData;
+	public GridData ObjectData { get { return objectData; } }
+
+	private List<BuildingSO> buildings;
+	public List<BuildingSO> Buildings { get { return buildings ??= new(Resources.LoadAll<BuildingSO>("Buildings")); } }
 
 	public enum IndicatorColor
 	{
@@ -33,10 +38,18 @@ public class StateManager : Singleton<StateManager>
 
 	private void Start()
 	{
+		StartCoroutine(WaitUntilEndOfFrame());
 		previewObject.gameObject.SetActive(false);
 		StopPlacement();
 		objectData = new();
 		StartInformation();
+	}
+
+	// This is a workaround to make sure that the production menu is initialized after the UI is scaled
+	IEnumerator WaitUntilEndOfFrame()
+	{
+		yield return new WaitForEndOfFrame();
+		ProductionMenuManager.Instance.Init();
 	}
 
 	private void OnEnable()
@@ -58,7 +71,7 @@ public class StateManager : Singleton<StateManager>
 		StopPlacement();
 		StopInformation();
 
-		gameState = new PlacementState(_selectedBoardObjectSO, grid, objectData, cellIndicator, previewObject);
+		gameState = new PlacementState(_selectedBoardObjectSO, Grid, objectData, cellIndicator, previewObject);
 
 		InputManager.Instance.OnMouseLeftClick += PlaceBoardObject;
 		InputManager.Instance.OnExit += StopPlacement;
@@ -70,7 +83,7 @@ public class StateManager : Singleton<StateManager>
 	private void PlaceBoardObject()
 	{
 		Vector2 mousePosition = InputManager.Instance.GetSelectedMapPosition();
-		Vector3Int gridPosition = grid.WorldToCell(mousePosition);
+		Vector3Int gridPosition = Grid.WorldToCell(mousePosition);
 
 		gameState?.OnAction(gridPosition);
 	}
@@ -91,7 +104,7 @@ public class StateManager : Singleton<StateManager>
 	public void StartInformation()
 	{
 		StopInformation();
-		gameState = new InformationState(grid, objectData, cellIndicator);
+		gameState = new InformationState(Grid, objectData, cellIndicator);
 
 		InputManager.Instance.OnMouseLeftClick += ShowInformation;
 		InputManager.Instance.OnMouseRightClick += SecondaryAction;
@@ -101,7 +114,7 @@ public class StateManager : Singleton<StateManager>
 	private void ShowInformation()
 	{
 		Vector2 mousePosition = InputManager.Instance.GetSelectedMapPosition();
-		Vector3Int gridPosition = grid.WorldToCell(mousePosition);
+		Vector3Int gridPosition = Grid.WorldToCell(mousePosition);
 
 		gameState?.OnAction(gridPosition);
 	}
@@ -109,7 +122,7 @@ public class StateManager : Singleton<StateManager>
 	private void SecondaryAction()
 	{
 		Vector2 mousePosition = InputManager.Instance.GetSelectedMapPosition();
-		Vector3Int gridPosition = grid.WorldToCell(mousePosition);
+		Vector3Int gridPosition = Grid.WorldToCell(mousePosition);
 
 		gameState?.OnSecondaryAction(gridPosition);
 	}
@@ -131,22 +144,26 @@ public class StateManager : Singleton<StateManager>
 
 	private void SpawnProduct(BoardObjectSO productSO, GameObject spawnerGameObject)
 	{
-		int index = ObjectPlacer.Instance.PlaceObject(productSO.Prefab, productSO, spawnerGameObject.transform.position);
-		Vector3Int gridPosition = grid.WorldToCell(spawnerGameObject.transform.position);
+		Vector3Int gridPosition = Grid.WorldToCell(spawnerGameObject.transform.position);
 
-		PlacementData dummyData = null;
-		if (objectData.placedObjects.ContainsKey(gridPosition))
+		if (objectData.placedObjects.ContainsKey(gridPosition) && objectData.placedObjects[gridPosition].Count > 0 && objectData.placedObjects[gridPosition].Last().BoardObjectSO is not BuildingSO)
 		{
-			dummyData = objectData.placedObjects[gridPosition];
-			objectData.placedObjects.Remove(gridPosition);
+			return;
 		}
+		int index = ObjectPlacer.Instance.PlaceObject(productSO.Prefab, productSO, spawnerGameObject.transform.position);
 		objectData.AddObjectAt(gridPosition, productSO, index);
-		// TODO: when product moves, readd the original object
-		// if (dummyData != null)
-		// {
-		// 	objectData.placedObjects.Remove(gridPosition);
-		// 	objectData.AddObjectAt(gridPosition, dummyData.BoardObjectSO, dummyData.PlacedObjectIndex);
-		// }
+	}
+
+	public void RemoveObjectAt(Vector3 worldPosition)
+	{
+		Vector3Int gridPosition = Grid.WorldToCell(worldPosition);
+		PlacementData removedObject = objectData.GetObjectAt(gridPosition);
+		if (removedObject == null)
+		{
+			return;
+		}
+		objectData.RemoveObjectAt(gridPosition);
+		ObjectPlacer.Instance.RemoveObjectAt(removedObject.PlacedObjectIndex);
 	}
 
 	/// <summary>
@@ -155,14 +172,14 @@ public class StateManager : Singleton<StateManager>
 	private void Update()
 	{
 		Vector2 mousePosition = InputManager.Instance.GetSelectedMapPosition();
-		Vector3Int gridPosition = grid.WorldToCell(mousePosition);
+		Vector3Int gridPosition = Grid.WorldToCell(mousePosition);
 
 		gameState?.UpdateState(gridPosition, lastGridPosition);
 
 		if (!InputManager.Instance.IsPointerOverUI())
 		{
 			cellIndicator.gameObject.SetActive(true);
-			previewObject.UpdatePosition(grid.CellToWorld(gridPosition));
+			previewObject.UpdatePosition(Grid.CellToWorld(gridPosition));
 		}
 		else
 		{

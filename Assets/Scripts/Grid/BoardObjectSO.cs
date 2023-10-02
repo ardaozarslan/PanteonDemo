@@ -12,15 +12,13 @@ public class BoardObjectSO : ScriptableObject
 	[SerializeField] private GameObject _prefab;
 	[SerializeField] private string _name;
 	[SerializeField] private Vector2Int _size;
-	[SerializeField] private SpriteAtlas _atlas;
-	[SerializeField] private string _spriteName;
+	[SerializeField] private Sprite _sprite;
 	[SerializeField] private int _health;
 
 	public GameObject Prefab { get { return _prefab; } }
 	public string Name { get { return _name; } }
 	public Vector2Int Size { get { return _size; } }
-	public SpriteAtlas Atlas { get { return _atlas; } }
-	public string SpriteName { get { return _spriteName; } }
+	public Sprite Sprite { get { return _sprite; } }
 	public int Health { get { return _health; } }
 	public virtual List<BoardObjectSO> Products { get { return new(); } }
 }
