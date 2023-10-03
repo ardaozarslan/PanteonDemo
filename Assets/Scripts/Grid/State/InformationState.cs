@@ -46,6 +46,7 @@ public class InformationState : IGameState
 		if (gameObjectIndex == -1)
 		{
 			EventManager.Instance.ShowInformation(null);
+			selectedGameObject = null;
 			return;
 		}
 
@@ -64,9 +65,12 @@ public class InformationState : IGameState
 		{
 			return;
 		}
-
+		if (selectedGameObject == null)
+		{
+			return;
+		}
 		BoardObjectBase selectedBoardObject = selectedGameObject.GetComponent<BoardObjectBase>();
-		if (selectedGameObject == null || selectedBoardObject is not SoldierBase)
+		if (selectedBoardObject is not SoldierBase)
 		{
 			return;
 		}

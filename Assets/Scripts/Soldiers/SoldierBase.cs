@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 /// <summary>
 /// Base class for all soldiers in the game. Provides functionality for initializing soldier properties and positioning the soldier sprite.
@@ -128,6 +129,7 @@ public abstract class SoldierBase : BoardObjectBase
 		isMoving = true;
 		if (Path == null || Path.Count == 0)
 		{
+			Debug.Log("return to current tile");
 			yield return StartCoroutine(MoveToTile(CurrentTile));
 			isMoving = false;
 			yield break;
@@ -201,15 +203,10 @@ public abstract class SoldierBase : BoardObjectBase
 	{
 		OccupyNewPosition(tile);
 		Vector3 direction = GridManager.Instance.Grid.CellToWorld(tile.GridPos) - GridManager.Instance.Grid.CellToWorld(CurrentTile.GridPos);
-		int steps = 60;
-		// Calculate the distance to move each step
-		Vector3 step = new Vector3(direction.x, direction.y, 0f) / steps;
-		// Move the soldier to the target position one step at a time
-		for (int i = 0; i < steps; i++)
-		{
-			transform.position = transform.position + step;
-			yield return new WaitForSeconds(0.1f / (steps * moveSpeed));
-		}
+		
+		transform.DOMove(transform.position + direction, 0.1f / moveSpeed).SetEase(Ease.Linear);
+
+		yield return new WaitForSeconds(0.1f / moveSpeed);
 		// Set the soldier's current tile to the target tile
 		RemoveFromOccupationList(CurrentTile);
 		CurrentTile = tile;
