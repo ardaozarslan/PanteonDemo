@@ -106,6 +106,16 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5423889979019730081, guid: c517dd64e93d0b145aafb52bd78e5407, type: 3}
   m_PrefabInstance: {fileID: 9068960814994721531}
   m_PrefabAsset: {fileID: 0}
+--- !u!225 &4784183806991417566 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 4593599176441645605, guid: c517dd64e93d0b145aafb52bd78e5407, type: 3}
+  m_PrefabInstance: {fileID: 9068960814994721531}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &6591511430317081066 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2783976047984020241, guid: c517dd64e93d0b145aafb52bd78e5407, type: 3}
+  m_PrefabInstance: {fileID: 9068960814994721531}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7828604220186680223 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1260904269593923940, guid: c517dd64e93d0b145aafb52bd78e5407, type: 3}
@@ -124,3 +134,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteObject: {fileID: 3935843696812430938}
+  healthBar: {fileID: 6591511430317081066}
+  healtBarFillCanvasGroup: {fileID: 4784183806991417566}

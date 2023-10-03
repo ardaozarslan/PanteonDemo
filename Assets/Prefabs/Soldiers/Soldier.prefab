@@ -75,6 +75,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteObject: {fileID: 6838204245033230214}
+  healthBar: {fileID: 3675221803322247222}
+  healtBarFillCanvasGroup: {fileID: 3034326267095107842}
+  targetTile: {fileID: 0}
+  lastTargetTile: {fileID: 0}
+  lastTargetBoardObject: {fileID: 0}
+--- !u!225 &3034326267095107842 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 4593599176441645605, guid: c517dd64e93d0b145aafb52bd78e5407, type: 3}
+  m_PrefabInstance: {fileID: 1559276491433542439}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &3675221803322247222 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2783976047984020241, guid: c517dd64e93d0b145aafb52bd78e5407, type: 3}
+  m_PrefabInstance: {fileID: 1559276491433542439}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6838204245033230214 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5423889979019730081, guid: c517dd64e93d0b145aafb52bd78e5407, type: 3}

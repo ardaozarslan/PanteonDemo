@@ -154,16 +154,16 @@ public class GameManager : Singleton<GameManager>
 		objectData.AddObjectAt(gridPosition, productSO, index);
 	}
 
-	public void RemoveObjectAt(Vector3 worldPosition)
+	public void RemoveObjectAt(int boardObjectIndex, Vector3Int gridPosition)
 	{
-		Vector3Int gridPosition = Grid.WorldToCell(worldPosition);
-		PlacementData removedObject = objectData.GetObjectAt(gridPosition);
+		PlacementData removedObject = objectData.GetObjectAt(gridPosition, boardObjectIndex);
 		if (removedObject == null)
 		{
+			Debug.LogWarning("No object to remove");
 			return;
 		}
-		objectData.RemoveObjectAt(gridPosition);
-		ObjectPlacer.Instance.RemoveObjectAt(removedObject.PlacedObjectIndex);
+		objectData.RemoveObjectAt(boardObjectIndex, gridPosition);
+		ObjectPlacer.Instance.RemoveObjectAt(boardObjectIndex);
 	}
 
 	/// <summary>

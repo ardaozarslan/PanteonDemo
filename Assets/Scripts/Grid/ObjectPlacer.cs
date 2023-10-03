@@ -12,19 +12,6 @@ public class ObjectPlacer : Singleton<ObjectPlacer>
 	{
 		GameObject newBoardObject = Instantiate(prefab, Vector3Int.zero, Quaternion.identity, boardObjectsParent.transform);
 		newBoardObject.transform.position = objectPosition;
-
-		// if (selectedBoardObjectSO is BuildingSO)
-		// {
-		// 	newBoardObject.GetComponent<BuildingBase>().Init(selectedBoardObjectSO as BuildingSO);
-		// }
-		// else if (selectedBoardObjectSO is SoldierSO)
-		// {
-		// 	newBoardObject.GetComponent<SoldierBase>().Init(selectedBoardObjectSO as SoldierSO);
-		// }
-		// else
-		// {
-		// 	throw new Exception("Unknown BoardObjectSO type");
-		// }
 		placedGameObjects.Add(newBoardObject);
 		newBoardObject.GetComponent<BoardObjectBase>().Init(selectedBoardObjectSO, placedGameObjects.Count - 1);
 		return placedGameObjects.Count - 1;
@@ -36,6 +23,12 @@ public class ObjectPlacer : Singleton<ObjectPlacer>
 		{
 			return;
 		}
+		StartCoroutine(WaitUntilEndOfFrame(gameObjectIndex));
+	}
+
+	IEnumerator WaitUntilEndOfFrame(int gameObjectIndex)
+	{
+		yield return new WaitForEndOfFrame();
 		Destroy(placedGameObjects[gameObjectIndex]);
 		placedGameObjects[gameObjectIndex] = null;
 	}

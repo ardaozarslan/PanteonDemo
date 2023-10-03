@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Base class for all board objects in the game. Provides functionality for initializing board object properties and positioning the board object sprite.
@@ -11,6 +12,9 @@ public abstract class BoardObjectBase : MonoBehaviour
 	public Vector2Int ObjectSize { get { return objectSize; } }
 
 	[SerializeField] protected GameObject spriteObject;
+	[SerializeField] protected RectTransform healthBar;
+	protected CanvasGroup healthBarCanvasGroup;
+	[SerializeField] protected CanvasGroup healtBarFillCanvasGroup;
 	protected SpriteRenderer spriteRenderer;
 	protected BoxCollider2D col2d;
 	protected BoardObjectSO boardObjectSO;
@@ -25,11 +29,17 @@ public abstract class BoardObjectBase : MonoBehaviour
 		get { return health; }
 		set { health = value; }
 	}
+	private int maxHealth;
 
 	private int boardObjectIndex;
 	public int BoardObjectIndex
 	{
 		get { return boardObjectIndex; }
+	}
+
+	public Vector3Int GridPosition
+	{
+		get { return GridManager.Instance.Grid.WorldToCell(transform.position + new Vector3(0.1f, 0.1f, 0f)); }
 	}
 
 	public delegate void OnDestroyed();
@@ -39,15 +49,21 @@ public abstract class BoardObjectBase : MonoBehaviour
 	{
 		spriteRenderer = spriteObject.GetComponent<SpriteRenderer>();
 		col2d = GetComponentInChildren<BoxCollider2D>();
+		healthBarCanvasGroup = healthBar.GetComponent<CanvasGroup>();
+		healthBarCanvasGroup.alpha = 0;
 	}
 
 	public void TakeDamage(int damage)
 	{
-		Health -= damage;
+		Health = Mathf.Max(Health - damage, 0);
+		float healthBarRatio = (float)Health / maxHealth;
+		healthBar.GetComponent<Slider>().value = healthBarRatio;
+		healthBarCanvasGroup.alpha = 0.5f;
 		if (Health <= 0)
 		{
+			healtBarFillCanvasGroup.alpha = 0;
 			OnDestroyedEvent?.Invoke();
-			GameManager.Instance.RemoveObjectAt(transform.position);
+			GameManager.Instance.RemoveObjectAt(boardObjectIndex, GridPosition);
 		}
 	}
 
@@ -63,9 +79,12 @@ public abstract class BoardObjectBase : MonoBehaviour
 		spriteRenderer.sprite = BoardObjectSO.Sprite;
 		col2d.size = spriteRenderer.sprite.bounds.size;
 		health = BoardObjectSO.Health;
+		maxHealth = health;
 		boardObjectIndex = _boardObjectIndex;
 
 		// Moves the spriteObject local position to the bottom left corner
 		spriteObject.transform.localPosition = new Vector3(Mathf.CeilToInt(objectSize.x / 2f) + (objectSize.x % 2f == 0 ? 0 : -0.5f), Mathf.CeilToInt(objectSize.y / 2f) + (objectSize.y % 2f == 0 ? 0 : -0.5f), 0);
+		healthBar.transform.localPosition = new Vector3(Mathf.CeilToInt(objectSize.x / 2f) + (objectSize.x % 2f == 0 ? 0 : -0.5f), objectSize.y + 0.1f * objectSize.x, 0);
+		healthBar.transform.localScale = new Vector3(objectSize.x * 0.006f, objectSize.x * 0.006f, objectSize.x * 0.006f);
 	}
 }

@@ -53,3 +53,6 @@ TagManager:
   - name: CellIndicator
     uniqueID: 4082388233
     locked: 0
+  - name: HealthBars
+    uniqueID: 221281075
+    locked: 0

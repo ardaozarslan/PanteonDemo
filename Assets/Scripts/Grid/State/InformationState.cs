@@ -51,6 +51,7 @@ public class InformationState : IGameState
 			return;
 		}
 
+
 		BoardObjectBase selectedBoardObject = selectedGameObject.GetComponent<BoardObjectBase>();
 
 		if (selectedGameObject == null || selectedBoardObject is not SoldierBase)
@@ -65,7 +66,19 @@ public class InformationState : IGameState
 		{
 			(selectedBoardObject as SoldierBase).SetTargetTile(GridManager.Instance.GetTileAtPosition(gridPosition));
 		}
-		else {
+		else
+		{
+			// self check
+			int otherGameObjectIndex = objectData.GetRepresentationIndex(gridPosition);
+			if (otherGameObjectIndex == -1)
+			{
+				return;
+			}
+			GameObject otherGameObject = ObjectPlacer.Instance.GetObjectAt(otherGameObjectIndex);
+			if (otherGameObject == null || otherGameObject == selectedGameObject)
+			{
+				return;
+			}
 			(selectedBoardObject as SoldierBase).SetTargetObject(_placementData);
 		}
 		return;

@@ -116,3 +116,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteObject: {fileID: 494509837962289321}
+  healthBar: {fileID: 7727040435358578457}
+  healtBarFillCanvasGroup: {fileID: 8225511623821686317}
+--- !u!224 &7727040435358578457 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2783976047984020241, guid: c517dd64e93d0b145aafb52bd78e5407, type: 3}
+  m_PrefabInstance: {fileID: 5591602809509788680}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &8225511623821686317 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 4593599176441645605, guid: c517dd64e93d0b145aafb52bd78e5407, type: 3}
+  m_PrefabInstance: {fileID: 5591602809509788680}
+  m_PrefabAsset: {fileID: 0}

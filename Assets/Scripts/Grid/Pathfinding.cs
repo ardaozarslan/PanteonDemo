@@ -57,6 +57,11 @@ public static class Pathfinding
 				}
 			}
 		}
+		Tile closestTile = FindClosestEmptyTile(startNode, new List<Vector3Int>() { targetNode.GridPos });
+		if (closestTile != null)
+		{
+			return FindPath(startNode, closestTile);
+		}
 		return null;
 	}
 

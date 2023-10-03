@@ -44,7 +44,7 @@ public class GridData
 		{
 			if (placedObjects.ContainsKey(position))
 			{
-				PlacementData _data = placedObjects[position].Where(x => x.PlacedObjectIndex == boardObjectIndex).First();
+				PlacementData _data = placedObjects[position].Where(x => x.PlacedObjectIndex == boardObjectIndex).Last();
 				_data.OccupiedPositions = positionsToOccupy;
 				_data.GridPosition = newOccupationPosition;
 				data = _data;
@@ -54,7 +54,8 @@ public class GridData
 		{
 			placedObjects[newOccupationPosition].Add(data);
 		}
-		else {
+		else
+		{
 			placedObjects.Add(newOccupationPosition, new List<PlacementData>() { data });
 		}
 	}
@@ -67,7 +68,7 @@ public class GridData
 		{
 			if (placedObjects.ContainsKey(position))
 			{
-				PlacementData _data = placedObjects[position].Where(x => x.PlacedObjectIndex == boardObjectIndex).First();
+				PlacementData _data = placedObjects[position].Where(x => x.PlacedObjectIndex == boardObjectIndex).Last();
 				_data.OccupiedPositions = positionsToOccupy;
 				data = _data;
 			}
@@ -76,7 +77,8 @@ public class GridData
 		{
 			throw new Exception($"Trying to remove an object at an empty position {occupationPositionToRemove}");
 		}
-		else {
+		else
+		{
 			placedObjects[occupationPositionToRemove].Remove(data);
 		}
 	}
@@ -86,11 +88,18 @@ public class GridData
 	/// </summary>
 	/// <param name="gridPosition">The grid position to check for a PlacementData object.</param>
 	/// <returns>The PlacementData object at the specified grid position, or null if no object exists at that position.</returns>
-	public PlacementData GetObjectAt(Vector3Int gridPosition)
+	public PlacementData GetObjectAt(Vector3Int gridPosition, int boardObjectIndex = -1)
 	{
 		if (placedObjects.ContainsKey(gridPosition))
 		{
-			return placedObjects[gridPosition].Count > 0 ? placedObjects[gridPosition].Last() : null;
+			if (boardObjectIndex >= 0)
+			{
+				return placedObjects[gridPosition].Where(x => x.PlacedObjectIndex == boardObjectIndex).ToList().Count > 0 ? placedObjects[gridPosition].Where(x => x.PlacedObjectIndex == boardObjectIndex).Last() : null;
+			}
+			else
+			{
+				return placedObjects[gridPosition].Count > 0 ? placedObjects[gridPosition].Last() : null;
+			}
 		}
 		return null;
 	}
@@ -154,11 +163,25 @@ public class GridData
 	/// Removes the object at the specified grid position and all other positions it occupies.
 	/// </summary>
 	/// <param name="gridPosition">The grid position of the object to remove.</param>
-	public void RemoveObjectAt(Vector3Int gridPosition)
+	public void RemoveObjectAt(int boardObjectIndex, Vector3Int gridPosition)
 	{
-		foreach (var pos in placedObjects[gridPosition].Last().OccupiedPositions)
+		if (!placedObjects.ContainsKey(gridPosition) || placedObjects[gridPosition].Count == 0)
 		{
-			placedObjects[pos].Remove(placedObjects[gridPosition].Last());
+			return;
+		}
+		List<Vector3Int> positionsToRemove = placedObjects[gridPosition].Where(x => x.PlacedObjectIndex == boardObjectIndex).Last().OccupiedPositions;
+		foreach (Vector3Int _position in positionsToRemove)
+		{
+			if (!placedObjects.ContainsKey(_position) || placedObjects[_position].Count == 0)
+			{
+				continue;
+			}
+			PlacementData dataToRemove = placedObjects[_position].Where(x => x.PlacedObjectIndex == boardObjectIndex).Last();
+			if (dataToRemove == null)
+			{
+				continue;
+			}
+			placedObjects[_position].Remove(dataToRemove);
 		}
 	}
 
@@ -177,7 +200,7 @@ public class GridData
 /// </summary>
 public class PlacementData
 {
-	public List<Vector3Int> OccupiedPositions {get; set;}
+	public List<Vector3Int> OccupiedPositions { get; set; }
 	public BoardObjectSO BoardObjectSO { get; private set; }
 	public Vector3Int GridPosition { get; set; }
 	public int PlacedObjectIndex { get; private set; }
