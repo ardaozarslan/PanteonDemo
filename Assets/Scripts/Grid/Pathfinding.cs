@@ -3,9 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// A static class that provides methods for finding paths between tiles in a grid.
+/// </summary>
 public static class Pathfinding
 {
 
+	/// <summary>
+	/// Finds a path from the start node to the target node using the A* algorithm.
+	/// </summary>
+	/// <param name="startNode">The starting node of the path.</param>
+	/// <param name="targetNode">The target node of the path.</param>
+	/// <returns>A list of tiles representing the path from the start node to the target node.</returns>
 	public static List<Tile> FindPath(Tile startNode, Tile targetNode)
 	{
 		var toSearch = new List<Tile>() { startNode };
@@ -65,7 +74,12 @@ public static class Pathfinding
 		return null;
 	}
 
-	// Returns the closest empty tile to the startNode that is a neighbor of one of the tiles positioned at the occupied positions
+	/// <summary>
+	/// Finds the closest empty tile to the given start node from a list of occupied positions.
+	/// </summary>
+	/// <param name="startNode">The starting tile to search from.</param>
+	/// <param name="occupiedPositions">A list of positions that are already occupied.</param>
+	/// <returns>The closest empty tile to the start node, or null if no empty tile is found.</returns>
 	public static Tile FindClosestEmptyTile(Tile startNode, List<Vector3Int> occupiedPositions)
 	{
 		List<Tile> toSearch = new();

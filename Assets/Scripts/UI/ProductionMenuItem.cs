@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 /// <summary>
 /// Represents a production menu item to display the buildings in the UI.
 /// </summary>

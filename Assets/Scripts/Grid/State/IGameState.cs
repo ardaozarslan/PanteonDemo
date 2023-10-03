@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Interface for game states. Defines methods for ending the state, performing actions, and updating the state.
+/// </summary>
 public interface IGameState
 {
     void EndState();

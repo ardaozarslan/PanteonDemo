@@ -26,7 +26,6 @@ public class InputManager : Singleton<InputManager>
 		currentCameraPosition = _camera.transform.position;
 	}
 
-
 	/// <summary>
 	/// Returns the position of the selected map point based on the current mouse position.
 	/// </summary>

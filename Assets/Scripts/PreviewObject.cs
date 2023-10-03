@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Represents a preview object that is shown on the game board at the pointer position.
+/// </summary>
 public class PreviewObject : BoardObjectBase
 {
 	public override void Init(BoardObjectSO _buildingSO, int _boardObjectIndex = -1)

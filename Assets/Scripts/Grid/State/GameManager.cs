@@ -101,6 +101,9 @@ public class GameManager : Singleton<GameManager>
 		StartInformation();
 	}
 
+	/// <summary>
+	/// Starts the Information state and subscribes to relevant input events.
+	/// </summary>
 	public void StartInformation()
 	{
 		StopInformation();
@@ -111,6 +114,9 @@ public class GameManager : Singleton<GameManager>
 		InputManager.Instance.OnExit += HideInformation;
 	}
 
+	/// <summary>
+	/// Shows information about the selected map position and triggers the corresponding game state action.
+	/// </summary>
 	private void ShowInformation()
 	{
 		Vector2 mousePosition = InputManager.Instance.GetSelectedMapPosition();
@@ -119,6 +125,9 @@ public class GameManager : Singleton<GameManager>
 		gameState?.OnAction(gridPosition);
 	}
 
+	/// <summary>
+	/// Performs the secondary action on the grid based on the current game state.
+	/// </summary>
 	private void SecondaryAction()
 	{
 		Vector2 mousePosition = InputManager.Instance.GetSelectedMapPosition();
@@ -127,11 +136,17 @@ public class GameManager : Singleton<GameManager>
 		gameState?.OnSecondaryAction(gridPosition);
 	}
 
+	/// <summary>
+	/// Hides the information panel by passing null to the ShowInformation method of the EventManager.
+	/// </summary>
 	private void HideInformation()
 	{
 		EventManager.Instance.ShowInformation(null);
 	}
 
+	/// <summary>
+	/// Stops the current game state and hides any information being displayed.
+	/// </summary>
 	private void StopInformation()
 	{
 		gameState?.EndState();
@@ -142,6 +157,12 @@ public class GameManager : Singleton<GameManager>
 		gameState = null;
 	}
 
+	/// <summary>
+	/// Spawns a product on the grid at the position of the given spawner game object.
+	/// If there is already a non-building object at the target position, the product will not be spawned.
+	/// </summary>
+	/// <param name="productSO">The BoardObjectSO of the product to spawn.</param>
+	/// <param name="spawnerGameObject">The GameObject that will be used as the spawn position.</param>
 	private void SpawnProduct(BoardObjectSO productSO, GameObject spawnerGameObject)
 	{
 		Vector3Int gridPosition = Grid.WorldToCell(spawnerGameObject.transform.position);
@@ -154,6 +175,11 @@ public class GameManager : Singleton<GameManager>
 		objectData.AddObjectAt(gridPosition, productSO, index);
 	}
 
+	/// <summary>
+	/// Removes the object at the specified grid position and board object index.
+	/// </summary>
+	/// <param name="boardObjectIndex">The index of the board object to remove.</param>
+	/// <param name="gridPosition">The grid position of the object to remove.</param>
 	public void RemoveObjectAt(int boardObjectIndex, Vector3Int gridPosition)
 	{
 		PlacementData removedObject = objectData.GetObjectAt(gridPosition, boardObjectIndex);

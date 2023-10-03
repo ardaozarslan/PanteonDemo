@@ -53,13 +53,14 @@ public class GridManager : Singleton<GridManager>
 	/// <returns>The tile at the specified grid position, or null if no tile exists at that position.</returns>
 	public Tile GetTileAtPosition(Vector2Int gridPos)
 	{
-		if (_tiles.ContainsKey(gridPos))
-		{
-			return _tiles[gridPos];
-		}
-		return null;
+		return _tiles.ContainsKey(gridPos) ? _tiles[gridPos] : null;
 	}
 
+	/// <summary>
+	/// Returns the tile at the given world position, if it exists.
+	/// </summary>
+	/// <param name="worldPos">The world position to check.</param>
+	/// <returns>The tile at the given world position, or null if no tile exists at that position..</returns>
 	public Tile GetTileAtPosition(Vector3 worldPos)
 	{
 		Vector2Int gridPos = (Vector2Int)grid.WorldToCell(worldPos);

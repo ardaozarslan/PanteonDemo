@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Represents the state of the game when the player is placing a board object on the grid.
+/// </summary>
 public class PlacementState : IGameState
 {
 	BoardObjectSO selectedBoardObjectSO, lastSelectedBoardObjectSO = null;
@@ -28,11 +31,16 @@ public class PlacementState : IGameState
 
 		if (selectedBoardObjectSO == null)
 		{
+#if UNITY_EDITOR
 			Debug.LogError("No board object selected");
+#endif
 			return;
 		}
 	}
 
+	/// <summary>
+	/// Ends the placement state by resetting the selected and last selected board object, hiding the preview object, and resetting the cell indicator sprite renderer.
+	/// </summary>
 	public void EndState()
 	{
 		selectedBoardObjectSO = null;
@@ -42,6 +50,10 @@ public class PlacementState : IGameState
 		cellIndicatorSpriteRenderer.color = GameManager.Instance.indicatorColors[GameManager.IndicatorColor.Green];
 	}
 
+	/// <summary>
+	/// Handles the action of placing a selected board object on the grid at the given grid position.
+	/// </summary>
+	/// <param name="gridPosition">The position on the grid where the object will be placed.</param>
 	public void OnAction(Vector3Int gridPosition)
 	{
 		if (InputManager.Instance.IsPointerOverUI())
@@ -74,6 +86,11 @@ public class PlacementState : IGameState
 		return objectData.CanPlaceObjectAt(gridPosition, selectedBoardObjectSO.Size);
 	}
 
+	/// <summary>
+	/// Updates the state of the placement based on the current grid position and the last grid position.
+	/// </summary>
+	/// <param name="gridPosition">The current grid position.</param>
+	/// <param name="lastGridPosition">The last grid position.</param>
 	public void UpdateState(Vector3Int gridPosition, Vector3Int lastGridPosition)
 	{
 		if (selectedBoardObjectSO != null)

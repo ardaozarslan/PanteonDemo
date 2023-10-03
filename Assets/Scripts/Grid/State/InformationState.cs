@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Represents the state of the game where the player is selecting a cell to get information about the object placed on it and has access to controlling it.
+/// </summary>
 public class InformationState : IGameState
 {
 	private int gameObjectIndex = -1;
@@ -19,12 +22,19 @@ public class InformationState : IGameState
 		cellIndicatorSpriteRenderer = cellIndicator.GetComponentInChildren<SpriteRenderer>();
 	}
 
+	/// <summary>
+	/// Ends the current state by resetting the cell indicator sprite renderer's size to Vector2.one and setting its color to green.
+	/// </summary>
 	public void EndState()
 	{
 		cellIndicatorSpriteRenderer.size = Vector2.one;
 		cellIndicatorSpriteRenderer.color = GameManager.Instance.indicatorColors[GameManager.IndicatorColor.Green];
 	}
 
+	/// <summary>
+	/// Handles the action to be taken when a grid position is clicked.
+	/// </summary>
+	/// <param name="gridPosition">The position of the clicked grid.</param>
 	public void OnAction(Vector3Int gridPosition)
 	{
 		if (InputManager.Instance.IsPointerOverUI())
@@ -44,6 +54,10 @@ public class InformationState : IGameState
 
 	}
 
+	/// <summary>
+	/// Handles the secondary action for the selected soldier on the grid.
+	/// </summary>
+	/// <param name="gridPosition">The position of the grid where the action is performed.</param>
 	public void OnSecondaryAction(Vector3Int gridPosition)
 	{
 		if (InputManager.Instance.IsPointerOverUI())
@@ -51,16 +65,12 @@ public class InformationState : IGameState
 			return;
 		}
 
-
 		BoardObjectBase selectedBoardObject = selectedGameObject.GetComponent<BoardObjectBase>();
-
 		if (selectedGameObject == null || selectedBoardObject is not SoldierBase)
 		{
 			return;
 		}
 
-		// TODO: implement soldier movement
-		Debug.Log("soldier right clicked");
 		PlacementData _placementData = objectData.GetObjectAt(gridPosition);
 		if (_placementData == null)
 		{
@@ -79,11 +89,17 @@ public class InformationState : IGameState
 			{
 				return;
 			}
+			// self check end
 			(selectedBoardObject as SoldierBase).SetTargetObject(_placementData);
 		}
 		return;
 	}
 
+	/// <summary>
+	/// Updates the state of the cell indicator based on the object data at the given grid position.
+	/// </summary>
+	/// <param name="gridPosition">The grid position to update the state for.</param>
+	/// <param name="lastGridPosition">The last grid position.</param>
 	public void UpdateState(Vector3Int gridPosition, Vector3Int lastGridPosition)
 	{
 		PlacementData data = objectData.GetObjectAt(gridPosition);

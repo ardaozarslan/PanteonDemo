@@ -4,8 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// TODO: clean up comments
-
 /// <summary>
 /// Represents a production menu item to display the buildings in the UI.
 /// </summary>
@@ -36,7 +34,6 @@ public class InformationMenuProduct : MonoBehaviour
 	/// </summary>
 	public void OnClick()
 	{
-		// TODO: Spawn the product associated with this item.
 		InformationMenuManager.Instance.SpawnProduct(boardObjectSO);
 	}
 }

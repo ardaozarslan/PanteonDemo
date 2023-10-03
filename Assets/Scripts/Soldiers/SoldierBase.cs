@@ -10,8 +10,8 @@ public abstract class SoldierBase : BoardObjectBase
 	public SoldierSO SoldierSO { get { return boardObjectSO as SoldierSO; } }
 	private Tile currentTile;
 	public Tile CurrentTile { get { return currentTile; } private set { currentTile = value; } }
-	public Tile targetTile;
-	public Tile lastTargetTile;
+	[HideInInspector] public Tile targetTile;
+	[HideInInspector] public Tile lastTargetTile;
 
 	private int damage;
 	public int Damage { get { return damage; } private set { damage = value; } }
@@ -30,7 +30,7 @@ public abstract class SoldierBase : BoardObjectBase
 			}
 		}
 	}
-	public BoardObjectBase lastTargetBoardObject;
+	[HideInInspector] public BoardObjectBase lastTargetBoardObject;
 
 	private bool isMoving = false;
 	private float moveSpeed = 1f;
@@ -40,12 +40,19 @@ public abstract class SoldierBase : BoardObjectBase
 
 	private Coroutine lastMoveCoroutine;
 
+	/// <summary>
+	/// Called when the target of the soldier is destroyed. Cancels the soldier's movement.
+	/// </summary>
 	private void OnTargetDestroyed()
 	{
 		// Cancel movement
 		TargetBoardObject = null;
 	}
 
+	/// <summary>
+	/// Sets the target tile for the soldier and initiates a move command if the soldier is not already moving.
+	/// </summary>
+	/// <param name="_targetTile">The target tile to set.</param>
 	public void SetTargetTile(Tile _targetTile)
 	{
 		targetTile = _targetTile;
@@ -61,6 +68,10 @@ public abstract class SoldierBase : BoardObjectBase
 		}
 	}
 
+	/// <summary>
+	/// Sets the target object for the soldier to move towards.
+	/// </summary>
+	/// <param name="_targetBoardObjectPlacementData">The placement data of the target board object.</param>
 	public void SetTargetObject(PlacementData _targetBoardObjectPlacementData)
 	{
 		TargetBoardObject = null;
@@ -85,6 +96,10 @@ public abstract class SoldierBase : BoardObjectBase
 		}
 	}
 
+	/// <summary>
+	/// Moves the soldier along the path to the last target tile.
+	/// If the soldier reaches the last target tile, it will attack the last target board object if it exists.
+	/// </summary>
 	private void MoveCommand()
 	{
 		Path = Pathfinding.FindPath(CurrentTile, lastTargetTile);
@@ -104,6 +119,10 @@ public abstract class SoldierBase : BoardObjectBase
 		lastMoveCoroutine = StartCoroutine(MoveAlongPath());
 	}
 
+	/// <summary>
+	/// Moves the soldier along the path to the target tile or board object.
+	/// </summary>
+	/// <returns>An IEnumerator representing the coroutine.</returns>
 	private IEnumerator MoveAlongPath()
 	{
 		isMoving = true;
@@ -154,6 +173,9 @@ public abstract class SoldierBase : BoardObjectBase
 		}
 	}
 
+	/// <summary>
+	/// Executes an attack command on the last target board object.
+	/// </summary>
 	private void AttackCommand()
 	{
 		if (lastTargetBoardObject == null)
@@ -193,12 +215,20 @@ public abstract class SoldierBase : BoardObjectBase
 		CurrentTile = tile;
 	}
 
+	/// <summary>
+	/// Occupies a new position on the game board.
+	/// </summary>
+	/// <param name="tile">The tile to occupy.</param>
 	private void OccupyNewPosition(Tile tile)
 	{
 		GameManager.Instance.ObjectData.AddToOccupationList(BoardObjectIndex, occupiedPositions, tile.GridPos);
 		occupiedPositions.Add(tile.GridPos);
 	}
 
+	/// <summary>
+	/// Removes the given tile from the list of occupied positions and updates the GameManager's ObjectData accordingly.
+	/// </summary>
+	/// <param name="tile">The tile to remove from the list of occupied positions.</param>
 	private void RemoveFromOccupationList(Tile tile)
 	{
 		GameManager.Instance.ObjectData.RemoveFromOccupationList(BoardObjectIndex, occupiedPositions, tile.GridPos);

@@ -36,6 +36,12 @@ public class GridData
 		}
 	}
 
+	/// <summary>
+	/// Adds a new occupation position to the list of positions occupied by a board object.
+	/// </summary>
+	/// <param name="boardObjectIndex">The index of the board object.</param>
+	/// <param name="occupationPositions">The list of positions currently occupied by the board object.</param>
+	/// <param name="newOccupationPosition">The new position to be added to the list of occupied positions.</param>
 	public void AddToOccupationList(int boardObjectIndex, List<Vector3Int> occupationPositions, Vector3Int newOccupationPosition)
 	{
 		List<Vector3Int> positionsToOccupy = occupationPositions.Concat(new List<Vector3Int>() { newOccupationPosition }).ToList();
@@ -60,6 +66,13 @@ public class GridData
 		}
 	}
 
+	/// <summary>
+	/// Removes the given occupation position from the list of occupied positions for the board object with the given index.
+	/// </summary>
+	/// <param name="boardObjectIndex">The index of the board object to remove the occupation position from.</param>
+	/// <param name="occupationPositions">The list of occupation positions for the board object.</param>
+	/// <param name="occupationPositionToRemove">The occupation position to remove from the list.</param>
+	/// <exception cref="Exception">Thrown when trying to remove an object at an empty position.</exception>
 	public void RemoveFromOccupationList(int boardObjectIndex, List<Vector3Int> occupationPositions, Vector3Int occupationPositionToRemove)
 	{
 		List<Vector3Int> positionsToOccupy = occupationPositions.Where(x => x != occupationPositionToRemove).ToList();
@@ -185,6 +198,11 @@ public class GridData
 		}
 	}
 
+	/// <summary>
+	/// Checks if the given grid position is walkable.
+	/// </summary>
+	/// <param name="gridPosition">The grid position to check.</param>
+	/// <returns>True if the position is walkable, false otherwise.</returns>
 	public bool IsWalkable(Vector3Int gridPosition)
 	{
 		if (placedObjects.ContainsKey(gridPosition) && placedObjects[gridPosition].Count > 0)

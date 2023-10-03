@@ -6,7 +6,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+/// <summary>
+/// Manages the information menu panel that displays information about selected game objects and their products.
+/// </summary>
 public class InformationMenuManager : Singleton<InformationMenuManager>
 {
 	private GameObject selectedGameObject;
@@ -34,6 +36,10 @@ public class InformationMenuManager : Singleton<InformationMenuManager>
 		EventManager.Instance.OnShowInformationEvent += ShowInformation;
 	}
 
+	/// <summary>
+	/// Shows or hides the panel based on the given boolean value.
+	/// </summary>
+	/// <param name="show">If true, the panel will be shown. If false, the panel will be hidden.</param>
 	private void ShowPanel(bool show)
 	{
 		canvasGroup.alpha = show ? 1 : 0;
@@ -41,6 +47,10 @@ public class InformationMenuManager : Singleton<InformationMenuManager>
 		canvasGroup.interactable = show;
 	}
 
+	/// <summary>
+	/// Shows the information of the selected game object in the information menu.
+	/// </summary>
+	/// <param name="shownGameObject">The game object to show information for.</param>
 	private void ShowInformation(GameObject shownGameObject)
 	{
 		if (shownGameObject == null)
@@ -84,6 +94,10 @@ public class InformationMenuManager : Singleton<InformationMenuManager>
 		lastSelectedObjectSO = selectedObjectSO;
 	}
 
+	/// <summary>
+	/// Spawns a product using the provided BoardObjectSO and selectedGameObject.
+	/// </summary>
+	/// <param name="productSO">The BoardObjectSO to use for the product.</param>
 	public void SpawnProduct(BoardObjectSO productSO)
 	{
 		if (selectedGameObject == null)
@@ -93,6 +107,9 @@ public class InformationMenuManager : Singleton<InformationMenuManager>
 		EventManager.Instance.SpawnProduct(productSO, selectedGameObject);
 	}
 
+	/// <summary>
+	/// Updates the size of the products scroll view when the window height changes.
+	/// </summary>
 	private void Update()
 	{
 		if (Screen.height != lastWindowHeight)

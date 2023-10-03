@@ -53,8 +53,16 @@ public abstract class BoardObjectBase : MonoBehaviour
 		healthBarCanvasGroup.alpha = 0;
 	}
 
+	/// <summary>
+	/// Reduces the health of the board object by the specified amount and updates the health bar UI accordingly. If the health reaches 0, the object is destroyed.
+	/// </summary>
+	/// <param name="damage">The amount of damage to be taken.</param>
 	public void TakeDamage(int damage)
 	{
+		if (Health <= 0)
+		{
+			return;
+		}
 		Health = Mathf.Max(Health - damage, 0);
 		float healthBarRatio = (float)Health / maxHealth;
 		healthBar.GetComponent<Slider>().value = healthBarRatio;
@@ -66,7 +74,6 @@ public abstract class BoardObjectBase : MonoBehaviour
 			GameManager.Instance.RemoveObjectAt(boardObjectIndex, GridPosition);
 		}
 	}
-
 
 	/// <summary>
 	/// Initializes the board object with the given BoardObjectSO.

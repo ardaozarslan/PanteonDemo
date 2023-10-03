@@ -54,6 +54,9 @@ public class Tile : MonoBehaviour
 		GetComponent<SpriteRenderer>().color = isOffset ? _offsetColor : _baseColor;
 	}
 
+	/// <summary>
+	/// Caches the neighboring tiles of this tile.
+	/// </summary>
 	public void CacheNeighbors()
 	{
 		Neighbors = new List<Tile>();
@@ -78,6 +81,11 @@ public class Tile : MonoBehaviour
 		H = h;
 	}
 
+	/// <summary>
+	/// Calculates the distance between this tile and another tile using the A* algorithm.
+	/// </summary>
+	/// <param name="_tile">The tile to calculate the distance to.</param>
+	/// <returns>The distance between the two tiles.</returns>
 	public float GetDistance(Tile _tile)
 	{
 		var dist = new Vector2Int(Mathf.Abs(gridPos.x - _tile.GridPos.x), Mathf.Abs(gridPos.y - _tile.GridPos.y));
