@@ -185,7 +185,9 @@ public class GameManager : Singleton<GameManager>
 		PlacementData removedObject = objectData.GetObjectAt(gridPosition, boardObjectIndex);
 		if (removedObject == null)
 		{
+#if UNITY_EDITOR
 			Debug.LogWarning("No object to remove");
+#endif
 			return;
 		}
 		objectData.RemoveObjectAt(boardObjectIndex, gridPosition);

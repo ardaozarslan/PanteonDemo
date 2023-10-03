@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6993e1941155fa48a48b602f22e4c28, type: 3}
+  m_Name: Silo
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 6694315942064909676, guid: 8798cbd7e5e151d48a5f82d1273d68b5, type: 3}
+  _name: Silo
+  _size: {x: 1, y: 2}
+  _sprite: {fileID: 21300000, guid: cc3c8253f355c9440bf0eee86110c6b8, type: 3}
+  _health: 80
+  _products: []

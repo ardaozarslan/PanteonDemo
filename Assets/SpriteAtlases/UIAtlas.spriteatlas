@@ -53,8 +53,11 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c5a0e2d137be8204db3ccc3afce7d449, type: 3}
   - {fileID: 21300000, guid: 595ee97201bd5c9499a849c437ae08d7, type: 3}
   - {fileID: 21300000, guid: cd23feb258b82c946bcc05838398c229, type: 3}
+  - {fileID: 21300000, guid: cc3c8253f355c9440bf0eee86110c6b8, type: 3}
   - {fileID: 21300000, guid: 923ca1cac34adad47bf659a1605d8f07, type: 3}
+  - {fileID: 21300000, guid: 6188518b25b69304290affaeab005276, type: 3}
   - {fileID: 21300000, guid: 1e8cfcac3a2c979489a13071102ecef3, type: 3}
+  - {fileID: 21300000, guid: 27d4d56d06aa4c9448668300264b5e31, type: 3}
   - {fileID: 21300000, guid: bad70f4ed72cb3e41afd0ada7fe95bd0, type: 3}
   - {fileID: 21300000, guid: 0b6d9eeea5d495b46a12e90f2b1a80c8, type: 3}
   - {fileID: 21300000, guid: 2248db4f2b1128741a542eb8d6a49aa3, type: 3}
@@ -63,8 +66,11 @@ SpriteAtlas:
   - ProductionItemUI
   - Soldier3
   - Barracks
+  - Silo
   - PowerPlant
+  - House1
   - Soldier2
+  - House2
   - Wall
   - Tile
   - CellIndicator
